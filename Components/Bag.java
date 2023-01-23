@@ -34,13 +34,13 @@ public class Bag {
 	}
 
 	// return version
-	public <K> HashMap<K, K> removePotion(K potion, HashMap<K, K> bag) {
+	public HashMap<String, String> removePotion(String potion, HashMap<String, String> bag) {
 		bag.remove(potion);
 		return bag;
 	}
 
 	// void version
-	public <K> void removePotion(K potion) {
+	public void removePotion(String potion) {
 		bag.remove(potion);
 	}
 
