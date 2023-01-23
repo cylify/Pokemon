@@ -18,11 +18,13 @@ public class UIMain extends JFrame {
         UIStartScreen start = new UIStartScreen(c, main);
         main.add(start, "start");
         c.show(main, "start");
+        main.add(new UIBattleScreen(), "battle");
         add(main);
         pack();
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+    
 
     public static void main(String[] args) {
         new UIMain();

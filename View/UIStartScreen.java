@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.CardLayout;
 import java.awt.GridBagConstraints;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class UIStartScreen extends JPanel {
     CardLayout c;
@@ -20,12 +22,14 @@ public class UIStartScreen extends JPanel {
         JButton play = new JButton(bgImg);
         play.setMargin(new Insets(0,0,0,0));
         add(play);
-        play.addActionListener(e -> showBattleScreen());
+        
+        play.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UIMain.c.show(UIMain.main, "battle");
+            }
+        });
     }
 
-    public void showBattleScreen() {
-        UIBattleScreen battleScreen = new UIBattleScreen();
-        main.add(battleScreen, "battle");
-        c.show(battleScreen, "battle");
-    }
+    
 }
