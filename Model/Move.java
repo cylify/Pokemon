@@ -28,7 +28,7 @@ public class Move {
 		} catch(FileNotFoundException e) {
 			System.out.println("No such file found.");
 		}
-		Game.mix(moves);
+		Player.mix(moves);
 		return moves;
 	}
 
