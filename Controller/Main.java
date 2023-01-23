@@ -25,6 +25,7 @@ public class Main extends JFrame {
         main.add(new UIBagPanel(), "bag");
         main.add(new UIOptionPanel(), "option");
         main.add(new UIPokemonPanel(), "pokemon");
+        main.add(new UIMovePanel(), "fight");
         add(main);
         pack();
         setVisible(true);

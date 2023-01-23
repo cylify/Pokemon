@@ -15,10 +15,16 @@ public class UIOptionPanel extends JPanel {
 
     public UIOptionPanel() {
         setSize(new Dimension(200, 100));
-        setLayout(new GridLayout());
+        // setLayout(new GridLayout());
         c.insets = new Insets(5,5,5,5);
+
         fight = new JButton("FIGHT");
-        fight.setSize(new Dimension(100, 100));
+        fight.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.c.show(Main.main, "fight");
+            }
+        });
         add(fight);
 
         bag = new JButton("BAG");
@@ -29,6 +35,15 @@ public class UIOptionPanel extends JPanel {
             }
         });
         add(bag);
+        
+        pokemon = new JButton("POK\u00C9MON");
+        pokemon.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.c.show(Main.main, "pokemon");
+            }
+        });
+        add(pokemon);
 
         run = new JButton("RUN");
         run.addActionListener(new ActionListener() {
@@ -39,13 +54,5 @@ public class UIOptionPanel extends JPanel {
         });
         add(run);
 
-        pokemon = new JButton("POK\u00C9MON");
-        pokemon.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Main.c.show(Main.main, "pokemon");
-            }
-        });
-        add(pokemon);
     }
 }
