@@ -29,6 +29,5 @@ public class UIBattleScreen extends JPanel {
         c.gridx = 3;
         c.gridy = 3;
         add(pokemon, c);
-
     }
 }
