@@ -26,7 +26,7 @@ public class UIStartScreen extends JPanel {
         play.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UIMain.c.show(UIMain.main, "battle");
+                Main.c.show(Main.main, "battle");
             }
         });
     }

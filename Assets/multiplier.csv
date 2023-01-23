@@ -1,4 +1,3 @@
-Attacker,Normal,Fighting,Flying,Poison,Ground,Rock,Bug,Ghost,Steel,Fire,Water,Grass,Electric,Psychic,Ice,Dragon,Dark,Fairy
 Normal,1,1,1,1,1,0.625,1,0.391,0.625,1,1,1,1,1,1,1,1,1
 Fighting,1.6,1,0.625,0.625,1,1.6,0.625,0.391,1.6,1,1,1,1,0.625,1.6,1,1.6,0.625
 Flying,1,1.6,1,1,1,0.625,1.6,1,0.625,1,1,1.6,0.625,1,1,1,1,1

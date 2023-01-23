@@ -29,12 +29,12 @@ public class Pokemon {
 		ArrayList<Pokemon> pokemonInfo = new ArrayList<>();
 		
 		try {
-			File file = new File("Pokemon/Assets/pokemon.csv");
+			File file = new File("C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/pokemon.csv");
 			Scanner in = new Scanner(file);
 			while(in.hasNextLine()) {
 				String line = in.nextLine();
 				String[] temp = line.split(",");
-				pokemonInfo.add(new Pokemon(Integer.valueOf(temp[0]), temp[1], temp[2], Integer.valueOf(temp[3]), Integer.valueOf(temp[4]), Integer.valueOf(temp[6])));
+				pokemonInfo.add(new Pokemon(Integer.valueOf(temp[0]), temp[1], temp[2], Integer.valueOf(temp[3]), Integer.valueOf(temp[4]), Integer.valueOf(temp[5])));
 			}
 			in.close();
 		} catch(FileNotFoundException e) {

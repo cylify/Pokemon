@@ -15,7 +15,7 @@ public class Items {
 	public static ArrayList<Items> readFile() {
 		ArrayList<Items> items = new ArrayList<>();
 		try {
-			File file = new File("potions.csv");
+			File file = new File("C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/potions.csv");
 			Scanner in = new Scanner(file);
 			while(in.hasNextLine()) {
 				String line = in.nextLine();
@@ -27,10 +27,6 @@ public class Items {
 			System.out.println("No such file found.");
 		}
 		return items;
-	}
-
-	
-	public static void main(String[] args) {
 	}
 
 
