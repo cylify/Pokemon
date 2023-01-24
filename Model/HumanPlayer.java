@@ -6,8 +6,16 @@ public class HumanPlayer extends Player {
 	}
 
 	@Override
-	public void applyDmg() {
+	public void switchPokemon(int index) {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void useItems(Items item) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 }

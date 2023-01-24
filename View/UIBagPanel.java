@@ -28,17 +28,17 @@ public class UIBagPanel extends JPanel {
         Player player = new HumanPlayer();
         
         
-        // JLabel potionExclaim = new JLabel("THESE ARE YOUR POTIONS!");
-        // potionExclaim.setVerticalAlignment(JLabel.TOP);
-        // try {
-        //     InputStream inputStream = new BufferedInputStream(new FileInputStream("C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/pokemon-stadium-2.ttf"));
-        //     Font font = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-        //     font = font.deriveFont(26f);
-        //     potionExclaim.setFont(font);
-        // } catch (IOException | FontFormatException e) {
-        //     potionExclaim.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 10));
-        // }
-        
+        JLabel potionExclaim = new JLabel("THESE ARE YOUR POTIONS!");
+        potionExclaim.setVerticalAlignment(JLabel.TOP);
+        try {
+            InputStream inputStream = new BufferedInputStream(new FileInputStream("C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/pokemon-stadium-2.ttf"));
+            Font font = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+            font = font.deriveFont(26f);
+            potionExclaim.setFont(font);
+        } catch (IOException | FontFormatException e) {
+            potionExclaim.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 10));
+        }
+        add(potionExclaim);
         for(int i = 0; i < potionButtons.length; ++i) {
             potionButtons[i] = new JButton(player.potionBag.get(i).getName());
             add(potionButtons[i]);

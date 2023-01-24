@@ -18,7 +18,7 @@ public class UIOptionPanel extends JPanel {
         c.insets = new Insets(5,5,5,5);
 
         fight = new JButton("FIGHT");
-        c.gridx = 10;
+        c.gridx = 5;
         c.gridy = 5;
         c.anchor = GridBagConstraints.SOUTH;
         fight.addActionListener(new ActionListener() {
@@ -58,6 +58,6 @@ public class UIOptionPanel extends JPanel {
             }
         });
         add(run,c);
-
+        setPreferredSize(new Dimension(700,400));
     }
 }

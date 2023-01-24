@@ -23,13 +23,43 @@ import java.awt.Image;
 public class UIPokemonPanel extends JPanel {
     protected JButton[] pokemons;
 
-    public UIPokemonPanel() {
-        pokemons = new JButton[4];
-        Player p = new HumanPlayer();
+    public UIPokemonPanel(Player p) {
+        pokemons = new JButton[p.pokemonBag.size()];
+        UIBattlePanel battlePanel = new UIBattlePanel(p);
+        add(battlePanel);
+        JLabel imgLabel = new JLabel();
         for(int i = 0; i < pokemons.length; ++i) {
             pokemons[i] = new JButton(p.pokemonBag.get(i).getName());
-            add(pokemons[i]);
+            if(pokemons[i].getText().equals(p.pokemonBag.get(0).getName())) {
+                continue;
+            } else {
+                final Integer innerI = i;
+                pokemons[i].addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        Pokemon temp = p.pokemonBag.get(innerI);
+                        p.pokemonBag.set(innerI, p.currentPokemon);
+                        pokemons[innerI] = new JButton(p.currentPokemon.getName());
+                        p.currentPokemon = temp;
+                        ImageIcon icon = new ImageIcon(temp.getImg());
+                        imgLabel.setIcon(icon);
+                        battlePanel.repaint();
+                        battlePanel.pokemonImg = new ImageIcon(
+                            "C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/back/"
+                            + String.valueOf(p.currentPokemon.getNumber()) + ".png");
+                        Image image = battlePanel.pokemonImg.getImage();
+                        Image newimg = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+                        battlePanel.pokemonImg = new ImageIcon(newimg);
+                        battlePanel.label.setIcon(battlePanel.pokemonImg);
+                        Main.c.show(Main.main, "battle");
+                    }
+                });
+                add(pokemons[i]);
+            }
         }
+
+        
+
 
         ImageIcon backImg = new ImageIcon("C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/BackButton.jpg");
         Image image = backImg.getImage();

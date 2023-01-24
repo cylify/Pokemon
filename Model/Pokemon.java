@@ -12,6 +12,7 @@ public class Pokemon {
 	private int health;
 	private Move[] moves;
 	private Status status;
+	private String img;
 
 	public Pokemon(int number, String name, String type, int health, int attack, int defense) {
 		this.number = number;
@@ -51,6 +52,23 @@ public class Pokemon {
 			pokemonMoves[i] = moves.get(i);
 		}
 		return pokemonMoves;
+	}
+
+	public void attack(Pokemon target, Move move) {
+
+	}
+
+	public void takeDmg(int dmg) {
+		
+	}
+
+	public static Pokemon valueOf(String name) {
+		ArrayList<Pokemon> poks = readFile();
+		for(Pokemon p : poks) {
+			if(p.getName().equals(name));
+			return p;
+		}
+		return null;
 	}
 
 
@@ -131,5 +149,15 @@ public class Pokemon {
 
 	public void setNumber(int number) {
 		this.number = number;
+	}
+
+
+	public String getImg() {
+		return img;
+	}
+
+
+	public void setImg(String img) {
+		this.img = img;
 	}
 }
