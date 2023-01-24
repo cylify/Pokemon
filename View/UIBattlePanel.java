@@ -22,19 +22,39 @@ import java.awt.Image;
 
 public class UIBattlePanel extends JPanel {
     ImageIcon pokemonImg;
-    JLabel label;
+    JLabel label1;
+    JLabel label2;
 
-    public UIBattlePanel(Player p) {
+    public UIBattlePanel(Player p1, Player p2) {
+        label1 = player1PokemonDisplay(p1);
+        label2 = player2PokemonDisplay(p2);
+        add(label1);
+        add(label2);
+        add(new UIOptionPanel(), "option");
+        add(new UIHP(p1.pokemonBag.get(0)), "hp");
+        add(new UIHP(p2.pokemonBag.get(0)), "hp");
+        setVisible(true);
+    }
+
+    public JLabel player1PokemonDisplay(Player p1) {
         pokemonImg = new ImageIcon(
-                "C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/back/"
-                        + String.valueOf(p.currentPokemon.getNumber()) + ".png");
+                "Pokemon/Assets/back/"
+                        + String.valueOf(p1.currentPokemon.getNumber()) + ".png");
         Image image = pokemonImg.getImage();
         Image newimg = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
         pokemonImg = new ImageIcon(newimg);
-        label = new JLabel(pokemonImg);
-        add(label);
-        add(new UIOptionPanel(), "option");
-        add(new UIHP(p.pokemonBag.get(0)), "hp");
-        setVisible(true);
+        JLabel label1 = new JLabel(pokemonImg);
+        return label1;
+    }
+
+    public JLabel player2PokemonDisplay(Player p2) {
+        pokemonImg = new ImageIcon(
+                "Pokemon/Assets/back/"
+                        + String.valueOf(p2.currentPokemon.getNumber()) + ".png");
+        Image image = pokemonImg.getImage();
+        Image newimg = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+        pokemonImg = new ImageIcon(newimg);
+        JLabel label2 = new JLabel(pokemonImg);
+        return label2;
     }
 }

@@ -29,7 +29,7 @@ public class UIMovePanel extends JPanel {
             add(pokemonMoves[i]);
         }
 
-        ImageIcon backImg = new ImageIcon("C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/BackButton.jpg");
+        ImageIcon backImg = new ImageIcon("Pokemon/Assets/BackButton.jpg");
         Image image = backImg.getImage(); // transform it 
         Image newimg = image.getScaledInstance(75, 75,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
         backImg = new ImageIcon(newimg);

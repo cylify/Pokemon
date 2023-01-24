@@ -31,7 +31,7 @@ public class UIBagPanel extends JPanel {
         JLabel potionExclaim = new JLabel("THESE ARE YOUR POTIONS!");
         potionExclaim.setVerticalAlignment(JLabel.TOP);
         try {
-            InputStream inputStream = new BufferedInputStream(new FileInputStream("C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/pokemon-stadium-2.ttf"));
+            InputStream inputStream = new BufferedInputStream(new FileInputStream("Pokemon/Assets/pokemon-stadium-2.ttf"));
             Font font = Font.createFont(Font.TRUETYPE_FONT, inputStream);
             font = font.deriveFont(26f);
             potionExclaim.setFont(font);
@@ -44,7 +44,7 @@ public class UIBagPanel extends JPanel {
             add(potionButtons[i]);
         }
 
-        ImageIcon backImg = new ImageIcon("C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/BackButton.jpg");
+        ImageIcon backImg = new ImageIcon("Pokemon/Assets/BackButton.jpg");
         Image image = backImg.getImage(); // transform it 
         Image newimg = image.getScaledInstance(75, 75,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
         backImg = new ImageIcon(newimg);

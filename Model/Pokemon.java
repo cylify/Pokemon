@@ -30,7 +30,7 @@ public class Pokemon {
 		ArrayList<Pokemon> pokemonInfo = new ArrayList<>();
 		
 		try {
-			File file = new File("C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/pokemon.csv");
+			File file = new File("Pokemon/Assets/pokemon.csv");
 			Scanner in = new Scanner(file);
 			while(in.hasNextLine()) {
 				String line = in.nextLine();

@@ -26,7 +26,7 @@ public class Multiplier {
 	public static ArrayList<String> readFile() {
 		ArrayList<String> mults = new ArrayList<>();
 		try {
-			File file = new File("C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/multiplier.csv");
+			File file = new File("Pokemon/Assets/multiplier.csv");
 			Scanner in = new Scanner(file);
 			while(in.hasNextLine()) {
 				String line = in.nextLine();

@@ -21,14 +21,15 @@ public class Main extends JFrame {
         Player p1 = new HumanPlayer();
         Player p2 = new Computer();
         UIStartScreen start = new UIStartScreen(c, main);
+        UIBattlePanel battlePanel = new UIBattlePanel(p1,p2);
         main.add(start, "start");
         c.show(main, "start");
         main.add(new UIOptionPanel(), "option");
         main.add(new UIBagPanel(), "bag");
         main.add(new UIOptionPanel(), "option");
-        main.add(new UIPokemonPanel(p1), "pokemon");
+        main.add(new UIPokemonPanel(p1, battlePanel), "pokemon");
         main.add(new UIMovePanel(), "fight");
-        main.add(new UIBattlePanel(p1), "battle");
+        main.add(battlePanel, "battle");
         add(main);
         setPreferredSize(new Dimension(900,550));
         pack();
