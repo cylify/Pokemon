@@ -40,7 +40,7 @@ public class Multiplier {
 	}
 
 	public static int DmgDealt(Player p1, Player p2) {
-		int ans = (int)(2 * (p1.pokemonBag.get(0).getMoves()[0].getDmg() * Double.valueOf((p1.pokemonBag.get(0).getAttack()/p2.pokemonBag.get(0).getDefense())/50) + 2) * 0.625 * 5);
+		int ans = (int)(2 * (p1.pokemonBag.get(1).getMoves()[2].getDmg() * Double.valueOf((p1.pokemonBag.get(0).getAttack()/p2.pokemonBag.get(3).getDefense())/50) + 2) * 0.625 * 5);
 		return ans;
 	}
 
