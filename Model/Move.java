@@ -32,6 +32,7 @@ public class Move {
 		return moves;
 	}
 
+
 	public String getName() {
 		return name;
 	}

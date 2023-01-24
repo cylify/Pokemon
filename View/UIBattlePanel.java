@@ -24,6 +24,7 @@ import java.awt.Image;
 public class UIBattlePanel extends JPanel {
     public UIBattlePanel(Player p) {
         ImageIcon pokemonImg = new ImageIcon("C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/back/" + String.valueOf(p.pokemonBag.get(0).getNumber()) +".png");
+        System.out.println(p.pokemonBag.get(0).getNumber());
         Image image = pokemonImg.getImage(); // transform it 
         Image newimg = image.getScaledInstance(75, 75,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
         pokemonImg = new ImageIcon(newimg);

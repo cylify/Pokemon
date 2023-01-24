@@ -2,8 +2,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public abstract class Player {
-	protected static ArrayList<Pokemon> pokemonBag;
-	protected static ArrayList<Items> potionBag;
+	protected ArrayList<Pokemon> pokemonBag;
+	protected ArrayList<Items> potionBag;
 
 	public Player() {
 		pokemonBag = new ArrayList<>();
@@ -23,6 +23,8 @@ public abstract class Player {
 	}
 	
 	public static <V> void mix(ArrayList<V> arr) {
-		Collections.shuffle(arr);
+		Collections.shuffle(arr); 
 	}
+
+	abstract public void applyDmg();
 }

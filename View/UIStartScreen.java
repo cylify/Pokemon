@@ -30,6 +30,4 @@ public class UIStartScreen extends JPanel {
             }
         });
     }
-
-    
 }

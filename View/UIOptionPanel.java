@@ -1,4 +1,4 @@
-import java.awt.GridLayout;
+import java.awt.GridBagLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -14,45 +14,50 @@ public class UIOptionPanel extends JPanel {
     GridBagConstraints c = new GridBagConstraints();
 
     public UIOptionPanel() {
-        setSize(new Dimension(200, 100));
-        // setLayout(new GridLayout());
+        setLayout(new GridBagLayout());
         c.insets = new Insets(5,5,5,5);
 
         fight = new JButton("FIGHT");
+        c.gridx = 10;
+        c.gridy = 5;
+        c.anchor = GridBagConstraints.SOUTH;
         fight.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Main.c.show(Main.main, "fight");
             }
         });
-        add(fight);
+        add(fight,c);
 
         bag = new JButton("BAG");
+        c.gridy = 6;
         bag.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Main.c.show(Main.main, "bag");
             }
         });
-        add(bag);
+        add(bag,c);
         
         pokemon = new JButton("POK\u00C9MON");
+        c.gridy = 7;
         pokemon.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Main.c.show(Main.main, "pokemon");
             }
         });
-        add(pokemon);
+        add(pokemon,c);
 
         run = new JButton("RUN");
+        c.gridy = 8;
         run.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Main.c.show(Main.main, "start");
             }
         });
-        add(run);
+        add(run,c);
 
     }
 }

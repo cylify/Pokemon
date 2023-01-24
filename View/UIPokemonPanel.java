@@ -32,8 +32,8 @@ public class UIPokemonPanel extends JPanel {
         }
 
         ImageIcon backImg = new ImageIcon("C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/BackButton.jpg");
-        Image image = backImg.getImage(); // transform it 
-        Image newimg = image.getScaledInstance(75, 75,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+        Image image = backImg.getImage();
+        Image newimg = image.getScaledInstance(75, 75,  java.awt.Image.SCALE_SMOOTH);
         backImg = new ImageIcon(newimg);
         JButton backButton = new JButton(backImg);
         backButton.addActionListener(new ActionListener() {
