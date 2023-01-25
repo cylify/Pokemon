@@ -14,6 +14,11 @@ public class Move {
 		this.dmg = dmg;
 	}
 
+	
+	/**
+	 * Read file 
+	 * @return ArrayList<Move>
+	 */
 	public static ArrayList<Move> readFile() {
 		ArrayList<Move> moves = new ArrayList<>();
 		try {
@@ -33,26 +38,50 @@ public class Move {
 	}
 
 
+	
+	/** 
+	 * @return String
+	 */
 	public String getName() {
 		return name;
 	}
 
+	
+	/** 
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	
+	/** 
+	 * @return String
+	 */
 	public String getType() {
 		return type;
 	}
 
+	
+	/** 
+	 * @param type
+	 */
 	public void setType(String type) {
 		this.type = type;
 	}
 
+	
+	/** 
+	 * @return int
+	 */
 	public int getDmg() {
 		return dmg;
 	}
 
+	
+	/** 
+	 * @param dmg
+	 */
 	public void setDmg(int dmg) {
 		this.dmg = dmg;
 	}

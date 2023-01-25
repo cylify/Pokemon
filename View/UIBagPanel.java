@@ -48,6 +48,7 @@ public class UIBagPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     player.getCurrentPokemon().setStatus(new Status("Normal"));
+                    Main.c.show(Main.main, "battle");
                 }
             });
             potionButtonPanel.add(potionButtons[i]);

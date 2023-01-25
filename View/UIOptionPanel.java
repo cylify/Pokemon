@@ -1,10 +1,7 @@
 import java.awt.GridLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
-import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -49,7 +46,7 @@ public class UIOptionPanel extends JPanel {
         run.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main.c.show(Main.main, "start");
+                System.exit(0);
             }
         });
         add(run);

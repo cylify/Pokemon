@@ -12,6 +12,11 @@ public class SpecialMoves {
 		this.status = status;
 	}
 
+	
+	/** 
+	 * Read file
+	 * @return ArrayList<SpecialMoves>
+	 */
 	public static ArrayList<SpecialMoves> readFile() {
 		ArrayList<SpecialMoves> specialMoves = new ArrayList<>();
 		try {
@@ -29,18 +34,34 @@ public class SpecialMoves {
 		return specialMoves;
 	}	
 
+	
+	/** 
+	 * @return String
+	 */
 	public String getName() {
 		return name;
 	}
 
+	
+	/** 
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	
+	/** 
+	 * @return String
+	 */
 	public String getStatus() {
 		return status;
 	}
 
+	
+	/** 
+	 * @param status
+	 */
 	public void setStatus(String status) {
 		this.status = status;
 	}

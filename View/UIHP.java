@@ -5,7 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 
 public class UIHP extends JPanel {
-    private static JProgressBar hpBar;
+    private JProgressBar hpBar;
 
     public UIHP(Pokemon p) {
         setLayout(new BorderLayout());
@@ -15,18 +15,20 @@ public class UIHP extends JPanel {
         hpBar.setMaximum(p.getHealth());
         hpBar.setValue(p.getCurrentHp());
         hpBar.setStringPainted(true);
-        hpBar.setString(String.valueOf(p.getCurrentHp()) + "/" + String.valueOf(
-                p.getHealth()));
+        hpBar.setString(String.valueOf(p.getCurrentHp()) + "/" + String.valueOf(p.getHealth()));
         add(hpBar, BorderLayout.CENTER);
         hpBar.setForeground(Color.BLUE);
         setBackground(Color.WHITE);
     }
 
-    public static void updateHP(Pokemon p) {
+    public void updateHP(Pokemon p) {
         hpBar.setMaximum(p.getHealth());
-        hpBar.setValue(p.getCurrentHp());
-        hpBar.setString(String.valueOf(p.getCurrentHp()) + "/" + String.valueOf(
-                p.getHealth()));
+        if (p.getCurrentHp() > 0) {
+            hpBar.setValue(p.getCurrentHp());
+            hpBar.setString(String.valueOf(p.getCurrentHp()) + "/" + String.valueOf(p.getHealth()));
+        } else {
+            hpBar.setValue(0);
+            hpBar.setString("0" + "/" + String.valueOf(p.getHealth()));
+        }
     }
-
 }

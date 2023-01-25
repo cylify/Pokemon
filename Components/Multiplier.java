@@ -12,10 +12,21 @@ public class Multiplier {
         multipliers = readFile();
     }
 
-    public ArrayList<Double> getMultipliers(String type) {
+    
+	/** 
+	 * Get all multipliers for type
+	 * @param type
+	 * @return ArrayList<Double>
+	 */
+	public ArrayList<Double> getMultipliers(String type) {
         return multipliers.getOrDefault(type, new ArrayList<>());
     }
 
+	
+	/** 
+	 * Read file
+	 * @return HashMap<String, ArrayList<Double>>
+	 */
 	public static HashMap<String, ArrayList<Double>> readFile() {
 		HashMap<String, ArrayList<Double>> mults = new HashMap<>();
 		try {
@@ -38,8 +49,17 @@ public class Multiplier {
 		return mults;
 	}
 	
+	
+	/** 
+	 * get specific multiplier for type 
+	 * @param attacker
+	 * @param defender
+	 * @return Double
+	 */
 	public static Double getMultiplier(Pokemon attacker, Pokemon defender) {
-		return multipliers.get(attacker.getType()).get(Pokemon.toInteger(defender.getType()));
+		Double mult = multipliers.get(attacker.getType()).get(Pokemon.toInteger(defender.getType()));
+		System.out.println(mult);
+		return mult;
 	}
 }
 

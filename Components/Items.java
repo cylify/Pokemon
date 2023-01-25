@@ -12,6 +12,11 @@ public class Items {
 		this.healing = healing;
 	}
 	
+	
+	/** 
+	 * Read file
+	 * @return ArrayList<Items>
+	 */
 	public static ArrayList<Items> readFile() {
 		ArrayList<Items> items = new ArrayList<>();
 		try {
@@ -30,18 +35,34 @@ public class Items {
 	}
 
 
+	
+	/** 
+	 * @param healing
+	 */
 	public void setHealing(String healing) {
 		this.healing = healing;
 	}
 
+	
+	/** 
+	 * @return String
+	 */
 	public String getName() {
 		return name;
 	}
 
+	
+	/** 
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	
+	/** 
+	 * @return String
+	 */
 	public String getHealing() {
 		return healing;
 	}

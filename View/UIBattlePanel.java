@@ -9,22 +9,22 @@ import java.awt.Image;
 public class UIBattlePanel extends JPanel {
     private ImageIcon humanPlayerPokemonImg;
     private ImageIcon computerPlayerPokemonImg;
-    JLabel humanPlayerPokemonLabel;
+    public JLabel humanPlayerPokemonLabel;
     private JLabel computerPlayerPokemonLabel;
-    private UIHP humanPlayerHP;
-    private UIHP computerPlayerHP;
+    public UIHP humanPlayerHP;
+    public static UIHP computerPlayerHP;
     private JLabel humanPlayerPokemonStatus;
     private JLabel computerPlayerPokemonStatus;
 
     public UIBattlePanel(HumanPlayer humanPlayer, Computer computerPlayer) {
         createPlayerPanel(humanPlayer);
         createComputerPanel(computerPlayer);
-        
+
         add(new UIOptionPanel(), BorderLayout.CENTER);
         setPreferredSize(new Dimension(700, 500));
         setVisible(true);
         setBackground(Color.WHITE);
-    }
+    }   
 
     public void createPlayerPanel(HumanPlayer humanPlayer) {
         // Create a panel for the human player's pokemon and hp
@@ -38,15 +38,14 @@ public class UIBattlePanel extends JPanel {
         humanPlayerPokemonImg = new ImageIcon(humanPlayerNewimg);
         humanPlayerPokemonLabel = new JLabel(humanPlayerPokemonImg);
         humanPlayerPanel.add(humanPlayerPokemonLabel, BorderLayout.NORTH);
-        humanPlayerHP = new UIHP(humanPlayer.getCurrentPokemon());
-        humanPlayerPanel.add(humanPlayerHP, BorderLayout.SOUTH);
+        humanPlayerHP = new UIHP(humanPlayer.currentPokemon);
+        humanPlayerPanel.add(humanPlayerHP, BorderLayout.WEST);
         humanPlayerPokemonStatus = new JLabel(humanPlayer.getCurrentPokemon().getStatus().getCurrentStatus());
         humanPlayerPokemonStatus.setBackground(Color.WHITE);
         humanPlayerPanel.add(humanPlayerPokemonStatus, BorderLayout.SOUTH);
         add(humanPlayerPanel, BorderLayout.WEST);
     }
-    
-    
+
     public void createComputerPanel(Computer computerPlayer) {
         JPanel computerPlayerPanel = new JPanel();
         computerPlayerPanel.setLayout(new BorderLayout());
@@ -59,13 +58,75 @@ public class UIBattlePanel extends JPanel {
         computerPlayerPokemonLabel = new JLabel(computerPlayerPokemonImg);
         computerPlayerPanel.add(computerPlayerPokemonLabel, BorderLayout.NORTH);
         computerPlayerHP = new UIHP(computerPlayer.getCurrentPokemon());
-        computerPlayerPanel.add(computerPlayerHP, BorderLayout.SOUTH);
+        computerPlayerPanel.add(computerPlayerHP, BorderLayout.CENTER);
         computerPlayerPokemonStatus = new JLabel(computerPlayer.getCurrentPokemon().getStatus().getCurrentStatus());
         computerPlayerPokemonStatus.setBackground(Color.WHITE);
         computerPlayerPanel.add(computerPlayerPokemonStatus, BorderLayout.SOUTH);
         add(computerPlayerPanel, BorderLayout.EAST);
 
     }
+
+    public ImageIcon getHumanPlayerPokemonImg() {
+        return humanPlayerPokemonImg;
+    }
+
+    public void setHumanPlayerPokemonImg(ImageIcon humanPlayerPokemonImg) {
+        this.humanPlayerPokemonImg = humanPlayerPokemonImg;
+    }
+
+    public ImageIcon getComputerPlayerPokemonImg() {
+        return computerPlayerPokemonImg;
+    }
+
+    public void setComputerPlayerPokemonImg(ImageIcon computerPlayerPokemonImg) {
+        this.computerPlayerPokemonImg = computerPlayerPokemonImg;
+    }
+
+    public JLabel getHumanPlayerPokemonLabel() {
+        return humanPlayerPokemonLabel;
+    }
+
+    public void setHumanPlayerPokemonLabel(JLabel humanPlayerPokemonLabel) {
+        this.humanPlayerPokemonLabel = humanPlayerPokemonLabel;
+    }
+
+    public JLabel getComputerPlayerPokemonLabel() {
+        return computerPlayerPokemonLabel;
+    }
+
+    public void setComputerPlayerPokemonLabel(JLabel computerPlayerPokemonLabel) {
+        this.computerPlayerPokemonLabel = computerPlayerPokemonLabel;
+    }
+
+    public UIHP getHumanPlayerHP() {
+        return humanPlayerHP;
+    }
+
+    public void setHumanPlayerHP(UIHP humanPlayerHP) {
+        this.humanPlayerHP = humanPlayerHP;
+    }
+
+    public static UIHP getComputerPlayerHP() {
+        return computerPlayerHP;
+    }
+
+    public void setComputerPlayerHP(UIHP computerPlayerHP) {
+        this.computerPlayerHP = computerPlayerHP;
+    }
+
+    public JLabel getHumanPlayerPokemonStatus() {
+        return humanPlayerPokemonStatus;
+    }
+
+    public void setHumanPlayerPokemonStatus(JLabel humanPlayerPokemonStatus) {
+        this.humanPlayerPokemonStatus = humanPlayerPokemonStatus;
+    }
+
+    public JLabel getComputerPlayerPokemonStatus() {
+        return computerPlayerPokemonStatus;
+    }
+
+    public void setComputerPlayerPokemonStatus(JLabel computerPlayerPokemonStatus) {
+        this.computerPlayerPokemonStatus = computerPlayerPokemonStatus;
+    }
 }
-
-

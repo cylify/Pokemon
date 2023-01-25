@@ -50,14 +50,16 @@ public class UIMovePanel extends JPanel {
         }
         add(potionExclaim, BorderLayout.NORTH);
     }
-    
+
     private void createMoveButtons(JPanel moveButtonsPanel) {
         for (Move move : hplayer.getCurrentPokemon().getMoves()) {
             JButton moveButton = new JButton(move.getName());
             moveButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    
+                    hplayer.attack(comp, move);
+                    UIBattlePanel.getComputerPlayerHP().updateHP(comp.getCurrentPokemon());
+                    Main.c.show(Main.main, "battle");
                 }
             });
             moveButtonsPanel.add(moveButton);
@@ -91,7 +93,9 @@ public class UIMovePanel extends JPanel {
             moveButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    
+                    hplayer.attack(comp, move);
+                    UIBattlePanel.getComputerPlayerHP().updateHP(comp.getCurrentPokemon());
+                    Main.c.show(Main.main, "battle");
                 }
             });
             moveButtonsPanel.add(moveButton);

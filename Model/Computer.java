@@ -7,6 +7,9 @@ public class Computer extends Player {
         super();
     }
 
+    /**
+     * Fill pokemon bag
+     */
     public void fillPokemonBag() {
         ArrayList<Pokemon> pokemons = Pokemon.readFile();
         Main.mix(pokemons);
@@ -16,6 +19,9 @@ public class Computer extends Player {
         }
     }
 
+    /**
+     * Fill potion bag
+     */
     public void fillPotionBag() {
         ArrayList<Items> potions = Items.readFile();
         Main.mix(potions);
@@ -25,10 +31,18 @@ public class Computer extends Player {
         }
     }
 
+    
+    /** 
+     * @param currentPokemon
+     */
     public void setCurrentPokemon(Pokemon currentPokemon) {
         this.currentPokemon = currentPokemon;
     }
 
+    
+    /** 
+     * @return Pokemon
+     */
     public Pokemon getCurrentPokemon() {
         return this.currentPokemon;
     }
@@ -47,10 +61,16 @@ public class Computer extends Player {
     public Move selectMove() {
         Random rand = new Random();
         Move move = getCurrentPokemon().getMoves()[rand.nextInt(getCurrentPokemon().getMoves().length)];
-        attack(move, getCurrentPokemon(), getDefendingPokemon());
         return move;
     }
 
+    
+    /** 
+     * Check if item for status is available
+     * @param pokemon
+     * @param potionBag
+     * @return boolean
+     */
     public boolean hasItemForStatus(Pokemon pokemon, ArrayList<Items> potionBag) {
         for(Items i : potionBag) {
             if(i.getHealing().equals(pokemon.getStatus().getCurrentStatus())) return true;

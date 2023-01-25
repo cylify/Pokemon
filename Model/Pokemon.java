@@ -32,6 +32,10 @@ public class Pokemon {
 	}
 
 
+	
+	/** 
+	 * @return ArrayList<Pokemon>
+	 */
 	public static ArrayList<Pokemon> readFile() {
 		ArrayList<Pokemon> pokemonInfo = new ArrayList<>();
 		
@@ -54,6 +58,10 @@ public class Pokemon {
 	}
 
 
+	
+	/** 
+	 * @return Move[]
+	 */
 	public Move[] getPokemonMoves() {
 		ArrayList<Move> moves = Move.readFile();
 		Move[] pokemonMoves = new Move[4];
@@ -63,6 +71,11 @@ public class Pokemon {
 		return pokemonMoves;
 	}
 
+	
+	/** 
+	 * @param name
+	 * @return Pokemon
+	 */
 	public static Pokemon valueOf(String name) {
 		ArrayList<Pokemon> poks = readFile();
 		for(Pokemon p : poks) {
@@ -72,6 +85,11 @@ public class Pokemon {
 		return null;
 	}
 
+	
+	/** 
+	 * @param type
+	 * @return Integer
+	 */
 	public static Integer toInteger(String type) {
 		if(type.equals("Normal")) {
 			return 0;
@@ -116,111 +134,199 @@ public class Pokemon {
 
 
 
+	
+	/** 
+	 * @return String
+	 */
 	public String getName() {
 		return name;
 	}
 
 
+	
+	/** 
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
 
+	
+	/** 
+	 * @return String
+	 */
 	public String getType() {
 		return type;
 	}
 
 
+	
+	/** 
+	 * @param type
+	 */
 	public void setType(String type) {
 		this.type = type;
 	}
 
 
+	
+	/** 
+	 * @return int
+	 */
 	public int getAttack() {
 		return attack;
 	}
 
 
+	
+	/** 
+	 * @param attack
+	 */
 	public void setAttack(int attack) {
 		this.attack = attack;
 	}
 
 
+	
+	/** 
+	 * @return int
+	 */
 	public int getDefense() {
 		return defense;
 	}
 
 
+	
+	/** 
+	 * @param defense
+	 */
 	public void setDefense(int defense) {
 		this.defense = defense;
 	}
 
 
+	
+	/** 
+	 * @return int
+	 */
 	public int getHealth() {
 		return health;
 	}
 
 
+	
+	/** 
+	 * @param health
+	 */
 	public void setHealth(int health) {
 		this.health = health;
 	}
 
 
+	
+	/** 
+	 * @return Move[]
+	 */
 	public Move[] getMoves() {
 		return moves;
 	}
 
 
+	
+	/** 
+	 * @param moves
+	 */
 	public void setMoves(Move[] moves) {
 		this.moves = moves;
 	}
 
 
+	
+	/** 
+	 * @return Status
+	 */
 	public Status getStatus() {
 		return status;
 	}
 
 
+	
+	/** 
+	 * @param status
+	 */
 	public void setStatus(Status status) {
 		this.status = status;
 	}
 
 
+	
+	/** 
+	 * @return int
+	 */
 	public int getNumber() {
 		return number;
 	}
 
 
+	
+	/** 
+	 * @param number
+	 */
 	public void setNumber(int number) {
 		this.number = number;
 	}
 
 
+	
+	/** 
+	 * @return String
+	 */
 	public String getImg() {
 		return img;
 	}
 
 
+	
+	/** 
+	 * @param img
+	 */
 	public void setImg(String img) {
 		this.img = img;
 	}
 
 
+	
+	/** 
+	 * @return int
+	 */
 	public int getCurrentHp() {
 		return currentHp;
 	}
 
 
+	
+	/** 
+	 * @param currentHp
+	 */
 	public void setCurrentHp(int currentHp) {
 		this.currentHp = currentHp;
 	}
 
 
+	
+	/** 
+	 * @return boolean
+	 */
 	public boolean isFeinted() {
 		return isFeinted;
 	}
 
 
+	
+	/** 
+	 * @param isFeinted
+	 */
 	public void setFeinted(boolean isFeinted) {
 		this.isFeinted = isFeinted;
 	}
