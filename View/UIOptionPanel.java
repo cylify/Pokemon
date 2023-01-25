@@ -1,4 +1,5 @@
 import java.awt.GridBagLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -59,5 +60,6 @@ public class UIOptionPanel extends JPanel {
         });
         add(run,c);
         setPreferredSize(new Dimension(700,400));
+        setBackground(Color.WHITE);
     }
 }

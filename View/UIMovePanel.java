@@ -1,46 +1,93 @@
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.awt.GridLayout;
-import java.awt.BorderLayout;
-import java.awt.Insets;
-import java.awt.CardLayout;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.event.ActionListener;
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.awt.event.ActionEvent;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.Image;
 
 public class UIMovePanel extends JPanel {
-    protected JButton[] pokemonMoves;
-    public UIMovePanel() {
-        pokemonMoves = new JButton[4];
-        Player p = new HumanPlayer();
-        for(int i = 0; i < pokemonMoves.length; ++i) {
-            pokemonMoves[i] = new JButton(p.pokemonBag.get(0).getMoves()[i].getName());
-            add(pokemonMoves[i]);
-        }
+    private Player player;
+    private ArrayList<JButton> moveButtons;
+    private JButton backButton;
+    private ImageIcon backButtonIcon;
 
-        ImageIcon backImg = new ImageIcon("Pokemon/Assets/BackButton.jpg");
-        Image image = backImg.getImage(); // transform it 
-        Image newimg = image.getScaledInstance(75, 75,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
-        backImg = new ImageIcon(newimg);
-        JButton backButton = new JButton(backImg);
+    public UIMovePanel(Player player) {
+        this.player = player;
+        moveButtons = new ArrayList<>();
+        JPanel moveButtonsPanel = new JPanel(new GridLayout(2, 2));
+        setLayout(new BorderLayout());
+        setPreferredSize(new Dimension(300, 400));
+        createMoveButtons(moveButtonsPanel);
+        createBackButton();
+        setBackground(Color.WHITE);
+    }
+
+    private void createMoveButtons(JPanel moveButtonsPanel) {
+        for (Move move : player.getCurrentPokemon().getMoves()) {
+            JButton moveButton = new JButton(move.getName());
+            moveButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // player.currentPokemon.attack(move, player.opponentDefendingPokemon);
+                }
+            });
+            moveButtonsPanel.add(moveButton);
+        }
+        add(moveButtonsPanel, BorderLayout.CENTER);
+    }
+
+    private void createBackButton() {
+        backButtonIcon = new ImageIcon(
+                "C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/BackButton.jpg");
+        Image image = backButtonIcon.getImage(); // transform it
+        Image newimg = image.getScaledInstance(55, 55, java.awt.Image.SCALE_SMOOTH);
+        // scale it the smooth way
+        backButtonIcon = new ImageIcon(newimg);
+        backButton = new JButton(backButtonIcon);
+        backButton.setPreferredSize(new Dimension(50, 50));
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Main.c.show(Main.main, "battle");
             }
         });
-        backButton.setPreferredSize(new Dimension(50,50));
-        add(backButton);
+        add(backButton, BorderLayout.SOUTH);
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public ArrayList<JButton> getMoveButtons() {
+        return moveButtons;
+    }
+
+    public void setMoveButtons(ArrayList<JButton> moveButtons) {
+        this.moveButtons = moveButtons;
+    }
+
+    public JButton getBackButton() {
+        return backButton;
+    }
+
+    public void setBackButton(JButton backButton) {
+        this.backButton = backButton;
+    }
+
+    public ImageIcon getBackButtonIcon() {
+        return backButtonIcon;
+    }
+
+    public void setBackButtonIcon(ImageIcon backButtonIcon) {
+        this.backButtonIcon = backButtonIcon;
     }
 }

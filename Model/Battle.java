@@ -1,10 +1,10 @@
 public class Battle {
     private int currentTurn;
-    private Player player1;
+    private Computer player1;
     private Player player2;
 
     public Battle() {
-        player1 = new HumanPlayer();
-        player2 = new HumanPlayer();   
+        player1 = new Computer();
+        player2 = new Player();   
     }
 }

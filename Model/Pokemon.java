@@ -10,11 +10,13 @@ public class Pokemon {
 	private int attack;
 	private int defense;
 	private int health;
+	private int currentHp;
 	private Move[] moves;
 	private Status status;
 	private String img;
+	private boolean isFeinted;
 
-	public Pokemon(int number, String name, String type, int health, int attack, int defense) {
+	public Pokemon(int number, String name, String type, int health, int attack, int defense, String img) {
 		this.number = number;
 		this.name = name;
 		this.type = type;
@@ -23,6 +25,8 @@ public class Pokemon {
 		this.defense = defense;
 		this.moves = new Move[4];
 		this.moves = getPokemonMoves();
+		this.img = img;
+		this.isFeinted = false;
 	}
 
 
@@ -30,12 +34,15 @@ public class Pokemon {
 		ArrayList<Pokemon> pokemonInfo = new ArrayList<>();
 		
 		try {
-			File file = new File("Pokemon/Assets/pokemon.csv");
+			File file = new File("C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/pokemon.csv");
 			Scanner in = new Scanner(file);
 			while(in.hasNextLine()) {
 				String line = in.nextLine();
 				String[] temp = line.split(",");
-				pokemonInfo.add(new Pokemon(Integer.valueOf(temp[0]), temp[1], temp[2], Integer.valueOf(temp[3]), Integer.valueOf(temp[4]), Integer.valueOf(temp[5])));
+				pokemonInfo.add(new Pokemon(Integer.valueOf(temp[0]), temp[1], temp[2], Integer.valueOf(temp[3]), 
+				Integer.valueOf(temp[4]), Integer.valueOf(temp[5]), 
+						"C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/back/"
+								+ String.valueOf(temp[0]) + ".png"));
 			}
 			in.close();
 		} catch(FileNotFoundException e) {
@@ -54,14 +61,6 @@ public class Pokemon {
 		return pokemonMoves;
 	}
 
-	public void attack(Pokemon target, Move move) {
-
-	}
-
-	public void takeDmg(int dmg) {
-		
-	}
-
 	public static Pokemon valueOf(String name) {
 		ArrayList<Pokemon> poks = readFile();
 		for(Pokemon p : poks) {
@@ -69,6 +68,48 @@ public class Pokemon {
 			return p;
 		}
 		return null;
+	}
+
+	public static Integer toInteger(String type) {
+		if(type.equals("Normal")) {
+			return 2;
+		} else if (type.equals("Fighting")) {
+			return 2;
+		} else if (type.equals("Flying")) {
+			return 3;
+		} else if (type.equals("Poison")) {
+			return 4;
+		} else if (type.equals("Ground")) {
+			return 5;
+		} else if (type.equals("Rock")) {
+			return 6;
+		} else if (type.equals("Bug")) {
+			return 7;
+		} else if (type.equals("Ghost")) {
+			return 8;
+		} else if (type.equals("Steel")) {
+			return 9;
+		} else if (type.equals("Fire")) {
+			return 10;
+		} else if (type.equals("Water")) {
+			return 11;
+		} else if (type.equals("Grass")) {
+			return 12;
+		} else if (type.equals("Electric")) {
+			return 13;
+		} else if (type.equals("Psychic")) {
+			return 14;
+		} else if (type.equals("Ice")) {
+			return 15;
+		} else if (type.equals("Dragon")) {
+			return 16;
+		} else if (type.equals("Dark")) {
+			return 17;
+		} else if (type.equals("Fairy")) {
+			return 18;
+		} else {
+			return null;
+		}
 	}
 
 
@@ -159,5 +200,25 @@ public class Pokemon {
 
 	public void setImg(String img) {
 		this.img = img;
+	}
+
+
+	public int getCurrentHp() {
+		return currentHp;
+	}
+
+
+	public void setCurrentHp(int currentHp) {
+		this.currentHp = currentHp;
+	}
+
+
+	public boolean isFeinted() {
+		return isFeinted;
+	}
+
+
+	public void setFeinted(boolean isFeinted) {
+		this.isFeinted = isFeinted;
 	}
 }

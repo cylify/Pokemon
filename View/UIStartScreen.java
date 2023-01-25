@@ -18,7 +18,7 @@ public class UIStartScreen extends JPanel {
         this.c = c;
         this.main = main;
 
-        ImageIcon bgImg = new ImageIcon("Pokemon/Assets/StartBackground.png");
+        ImageIcon bgImg = new ImageIcon("C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/StartBackground.png");
         JButton play = new JButton(bgImg);
         play.setMargin(new Insets(0,0,0,0));
         add(play);

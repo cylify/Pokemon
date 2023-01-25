@@ -1,12 +1,12 @@
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.awt.GridLayout;
-import java.awt.Insets;
+import javax.swing.UIManager;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FontFormatException;
 
@@ -18,23 +18,27 @@ public class Main extends JFrame {
         super("Pok\u00E9mon");
         c = new CardLayout();
         main = new JPanel(c);
-        Player p1 = new HumanPlayer();
-        Player p2 = new Computer();
+        Player p = new Player();
         UIStartScreen start = new UIStartScreen(c, main);
-        UIBattlePanel battlePanel = new UIBattlePanel(p1,p2);
+        UIBattlePanel battlePanel = new UIBattlePanel(p);
+        UIMovePanel movePanel = new UIMovePanel(p);
         main.add(start, "start");
         c.show(main, "start");
         main.add(new UIOptionPanel(), "option");
-        main.add(new UIBagPanel(), "bag");
+        main.add(new UIBagPanel(p), "bag");
         main.add(new UIOptionPanel(), "option");
-        main.add(new UIPokemonPanel(p1, battlePanel), "pokemon");
-        main.add(new UIMovePanel(), "fight");
+        main.add(new UIPokemonPanel(p, battlePanel, c, main, movePanel), "pokemon");
+        main.add(movePanel, "fight");
         main.add(battlePanel, "battle");
         add(main);
         setPreferredSize(new Dimension(900,550));
         pack();
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public static <V> void mix(ArrayList<V> arr) {
+        Collections.shuffle(arr);
     }
     
 

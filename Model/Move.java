@@ -17,7 +17,7 @@ public class Move {
 	public static ArrayList<Move> readFile() {
 		ArrayList<Move> moves = new ArrayList<>();
 		try {
-			File file = new File("Pokemon/Assets/moves.csv");
+			File file = new File("C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/moves.csv");
 			Scanner in = new Scanner(file);
 			while(in.hasNextLine()) {
 				String line = in.nextLine();
@@ -28,7 +28,7 @@ public class Move {
 		} catch(FileNotFoundException e) {
 			System.out.println("No such file found.");
 		}
-		Player.mix(moves);
+		Main.mix(moves);
 		return moves;
 	}
 

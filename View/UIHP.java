@@ -11,9 +11,10 @@ public class UIHP extends JPanel {
         hpBar.setMaximum(p.getHealth()); // set maximum value
         hpBar.setValue(p.getHealth()); // set current value
         hpBar.setForeground(Color.BLUE);
-
+        hpBar.setBackground(Color.WHITE);
         JLabel hpLabel = new JLabel(String.valueOf(p.getHealth()) + "/" + String.valueOf(p.getHealth()));
         add(hpBar);
         add(hpLabel);
+
     }
 }

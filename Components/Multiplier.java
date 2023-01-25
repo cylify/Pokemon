@@ -5,32 +5,31 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Multiplier {
-	public float dmgMult;
-	
-	public Multiplier(float dmgMult) {
-		this.dmgMult = dmgMult;
-	}
+    private HashMap<String, ArrayList<Double>> multipliers;
 
-	public static HashMap<String, Double> getMults(ArrayList<String> mults) {
-		HashMap<String, Double> allMults = new HashMap<>();
-		for(int i = 0; i < mults.size(); ++i) {
-			String temp[] = mults.get(i).split(",");
-			String currName = temp[0];
-			for(int j = 1; j < temp.length; ++j) {
-				allMults.put(currName + String.valueOf(j), Double.valueOf(temp[j]));
-			}	
-		}
-		return allMults;
-	}
+    public Multiplier() {
+        multipliers = new HashMap<>();
+        multipliers = readFile();
+    }
 
-	public static ArrayList<String> readFile() {
-		ArrayList<String> mults = new ArrayList<>();
+    public ArrayList<Double> getMultipliers(String type) {
+        return multipliers.getOrDefault(type, new ArrayList<>());
+    }
+
+	public static HashMap<String, ArrayList<Double>> readFile() {
+		HashMap<String, ArrayList<Double>> mults = new HashMap<>();
 		try {
-			File file = new File("Pokemon/Assets/multiplier.csv");
+			File file = new File("C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/multiplier.csv");
 			Scanner in = new Scanner(file);
 			while(in.hasNextLine()) {
 				String line = in.nextLine();
-				mults.add(line);
+				String key = line.substring(0, line.indexOf(","));
+				line.replace(line.substring(0, line.indexOf(",")), "");
+				ArrayList<Double> temp = new ArrayList<>();
+				for(String s : line.split(",")) {
+					temp.add(Double.valueOf(s));
+				}
+				mults.put(key, temp);
 			}
 			in.close();
 		} catch(FileNotFoundException e) {
@@ -38,22 +37,18 @@ public class Multiplier {
 		}
 		return mults;
 	}
-
-	public static int DmgDealt(Player p1, Player p2) {
-		int ans = (int)(2 * (p1.pokemonBag.get(1).getMoves()[2].getDmg() * Double.valueOf((p1.pokemonBag.get(0).getAttack()/p2.pokemonBag.get(3).getDefense())/50) + 2) * 0.625 * 5);
-		return ans;
+	
+	public Double getMultiplier(Pokemon attacker, Pokemon defender) {
+		return multipliers.get(attacker.getType()).get(Pokemon.toInteger(defender.getType()));
 	}
 
-	public static void main(String[] args) {
-		Player p1 = new HumanPlayer();
-		Player p2 = new HumanPlayer();
-		int ans = DmgDealt(p1, p2);
-		System.out.println(ans);
+	public int getDmgOfMove(Move move, Pokemon attacker, Pokemon defender) {
+		return (int) (Math.round(2 * move.getDmg() * ((attacker.getAttack() / defender.getDefense()) / 50.0 + 2)
+				* getMultiplier(attacker, defender) * 5));
+	}
 
-		ArrayList<String> kndf = readFile();
-		HashMap<String, Double> nid = getMults(kndf);
-		System.out.println(nid); 
-
-	}	
 
 }
+
+
+
