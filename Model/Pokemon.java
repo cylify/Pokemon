@@ -21,6 +21,7 @@ public class Pokemon {
 		this.name = name;
 		this.type = type;
 		this.health = health;
+		this.currentHp = health;
 		this.attack = attack;
 		this.defense = defense;
 		this.moves = new Move[4];
@@ -72,7 +73,7 @@ public class Pokemon {
 
 	public static Integer toInteger(String type) {
 		if(type.equals("Normal")) {
-			return 2;
+			return 1;
 		} else if (type.equals("Fighting")) {
 			return 2;
 		} else if (type.equals("Flying")) {
@@ -110,6 +111,11 @@ public class Pokemon {
 		} else {
 			return null;
 		}
+	}
+
+	public int attack(Move move, Pokemon attacker, Pokemon defender) {
+		return (int) (Math.round(2 * move.getDmg() * ((attacker.getAttack() / defender.getDefense()) / 50.0 + 2)
+				* Multiplier.getMultiplier(attacker, defender) * 5));
 	}
 
 

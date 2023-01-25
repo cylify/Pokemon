@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Multiplier {
-    private HashMap<String, ArrayList<Double>> multipliers;
+    private static HashMap<String, ArrayList<Double>> multipliers;
 
     public Multiplier() {
         multipliers = new HashMap<>();
@@ -38,16 +38,9 @@ public class Multiplier {
 		return mults;
 	}
 	
-	public Double getMultiplier(Pokemon attacker, Pokemon defender) {
+	public static Double getMultiplier(Pokemon attacker, Pokemon defender) {
 		return multipliers.get(attacker.getType()).get(Pokemon.toInteger(defender.getType()));
 	}
-
-	public int getDmgOfMove(Move move, Pokemon attacker, Pokemon defender) {
-		return (int) (Math.round(2 * move.getDmg() * ((attacker.getAttack() / defender.getDefense()) / 50.0 + 2)
-				* getMultiplier(attacker, defender) * 5));
-	}
-
-
 }
 
 

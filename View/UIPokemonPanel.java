@@ -1,36 +1,33 @@
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Image;
 import java.awt.GridLayout;
-import java.awt.GridBagConstraints;
 
 
 public class UIPokemonPanel extends JPanel {
     private JButton[] pokemons;
-    private JLabel imgLabel;
     private Player p;
     private UIBattlePanel battlePanel;
     private CardLayout cardLayout;
     private JPanel mainPanel;
     private ActionListener[] actionListeners;
     private UIMovePanel movePanel;
+    private UIHP hp;
     
 
-    public UIPokemonPanel(Player p, UIBattlePanel battlePanel, CardLayout cardLayout, JPanel mainPanel, UIMovePanel movePanel) {
+    public UIPokemonPanel(Player p, UIBattlePanel battlePanel, CardLayout cardLayout, JPanel mainPanel, UIMovePanel movePanel, UIHP hp) {
         this.p = p;
         this.battlePanel = battlePanel;
         this.movePanel = movePanel;
         this.cardLayout = cardLayout;
         this.mainPanel = mainPanel;
+        this.hp = hp;
         setLayout(new BorderLayout());
         JPanel pokePanel = new JPanel(new GridLayout(2,2));
         createPokemonButtons(pokePanel);
@@ -47,6 +44,8 @@ public class UIPokemonPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     changePokemon(index);
+                    movePanel.updateMoveButtons();
+                    hp.updateHP(p);
                 }
             };
             pokemons[i].addActionListener(actionListeners[i]);

@@ -26,7 +26,7 @@ public class Computer {
         Main.mix(potions);
 
         for(int i = 0; i < 4; ++i) {
-            potions.add(potions.get(i));
+            potionBag.add(potions.get(i));
         }
     }
 
@@ -55,6 +55,6 @@ public class Computer {
         // Code to make the computer player's current Pokemon attack the player's
         // defending Pokemon
         Move move = selectMove();
-        // this.currentPokemon.attack(move, player.getDefendingPokemon());
+        this.currentPokemon.attack(move, this.currentPokemon, player.getDefendingPokemon());
     }
 }

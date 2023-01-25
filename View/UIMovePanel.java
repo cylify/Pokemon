@@ -33,7 +33,7 @@ public class UIMovePanel extends JPanel {
             moveButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    // player.currentPokemon.attack(move, player.opponentDefendingPokemon);
+                    player.getCurrentPokemon().attack(move, player.getCurrentPokemon(), player.getDefendingPokemon());
                 }
             });
             moveButtonsPanel.add(moveButton);
@@ -57,6 +57,26 @@ public class UIMovePanel extends JPanel {
             }
         });
         add(backButton, BorderLayout.SOUTH);
+    }
+
+    public void updateMoveButtons() {
+        moveButtons.clear();
+        JPanel moveButtonsPanel = new JPanel(new GridLayout(2, 2));
+        for (Move move : player.getCurrentPokemon().getMoves()) {
+            JButton moveButton = new JButton(move.getName());
+            moveButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    player.getCurrentPokemon().attack(move, player.getCurrentPokemon(), player.getDefendingPokemon());
+                }
+            });
+            moveButtonsPanel.add(moveButton);
+        }
+        removeAll();
+        add(moveButtonsPanel, BorderLayout.CENTER);
+        add(backButton, BorderLayout.SOUTH);
+        revalidate();
+        repaint();
     }
 
     public Player getPlayer() {
