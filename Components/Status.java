@@ -1,14 +1,16 @@
-import java.util.ArrayList;
-
 public class Status {
     private String currentStatus;
     private int duration;
 
-    public Status(String currentStatus, int duration) {
+    public Status(String currentStatus) {
         this.currentStatus = currentStatus;
-        this.duration = duration;
+        this.duration  = 2;
     }
 
+
+    public Status() {
+        this("Normal");
+    }
 
     public String getCurrentStatus() {
         return currentStatus;

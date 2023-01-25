@@ -1,79 +1,78 @@
 import java.util.ArrayList;
+import java.util.Random;
 
-public class Player {
-	private ArrayList<Pokemon> pokemonBag;
-	private ArrayList<Items> potionBag;
-	private Pokemon currentPokemon;
-	private Pokemon defendingPokemon;
+public abstract class Player {
+    protected ArrayList<Pokemon> pokemonBag;
+    protected ArrayList<Items> potionBag;
+    protected Pokemon currentPokemon;
+    protected Pokemon defendingPokemon;
 
-	public Player() {
-		this.pokemonBag = new ArrayList<>();
-		this.potionBag = new ArrayList<>();
-		fillPokemonBag();
-		fillPotionBag();
-		this.currentPokemon = pokemonBag.get(0);
-	}
+    public Player() {
+        this.pokemonBag = new ArrayList<>();
+        this.potionBag = new ArrayList<>();
+        fillPokemonBag();
+        fillPotionBag();
+        this.currentPokemon = pokemonBag.get(0);
+    }
 
-	public void fillPokemonBag() {
-		ArrayList<Pokemon> pokemons = Pokemon.readFile();
-		Main.mix(pokemons);
+    public abstract void fillPokemonBag();
 
-		for (int i = 0; i < 4; ++i) {
-			pokemonBag.add(pokemons.get(i));
-		}
-	}
+    public abstract void fillPotionBag();
 
-	public void fillPotionBag() {
-		ArrayList<Items> potions = Items.readFile();
-		Main.mix(potions);
+    public int dmgOfMove(Move move, Pokemon attacker, Pokemon defender) {
+        int dmg = (int) (2 * Double.valueOf(move.getDmg()) * ((Double.valueOf(attacker.getAttack()) /
+                Double.valueOf(defender.getDefense())) / 50.0 + 2.0)
+                * Multiplier.getMultiplier(attacker, defender) * 5.0);
+        return dmg;
+    }
 
-		for (int i = 0; i < 4; ++i) {
-			potionBag.add(potions.get(i));
-		}
-	}
+    public void inflictsStatus(Move move, Pokemon defender) {
+        Random rand = new Random();
+        for (SpecialMoves specialMove : SpecialMoves.readFile()) {
+            if (specialMove.getName().equals(move.getName())) {
+                if (rand.nextInt(0, 4) == 0)
+                    defender.setStatus(new Status(specialMove.getStatus()));
+                else
+                    defender.setStatus(new Status("Normal"));
+            }
+        }
+    }
 
-	public void setCurrentPokemon(Pokemon currentPokemon) {
-		this.currentPokemon = currentPokemon;
-	}
+    public void attack(Move move, Pokemon attacker, Pokemon defender) {
+        int dmg = dmgOfMove(move, attacker, defender);
+        defender.setCurrentHp(defender.getCurrentHp() - dmg);
+        inflictsStatus(move, defender);
+    }
 
-	public Pokemon getCurrentPokemon() {
-		return this.currentPokemon;
-	}
+    public void setCurrentPokemon(Pokemon currentPokemon) {
+        this.currentPokemon = currentPokemon;
+    }
 
-	public void setDefendingPokemon(Pokemon defendingPokemon) {
-		this.defendingPokemon = defendingPokemon;
-	}
+    public Pokemon getCurrentPokemon() {
+        return this.currentPokemon;
+    }
 
-	public Pokemon getDefendingPokemon() {
-		return this.defendingPokemon;
-	}
+    public void setDefendingPokemon(Pokemon defendingPokemon) {
+        this.defendingPokemon = defendingPokemon;
+    }
 
-	public void selectPokemon() {
-		// Code to allow the player to select a Pokemon from their bag
-	}
+    public Pokemon getDefendingPokemon() {
+        return this.defendingPokemon;
+    }
 
-	// public Move selectMove() {
-	// 	// Code to allow the player to select a move from their current Pokemon
-	// }
+    public ArrayList<Pokemon> getPokemonBag() {
+        return pokemonBag;
+    }
 
-	public void attack(Computer computerPlayer) {
-		// Code to make the player's current Pokemon attack the computer player's
-		// current Pokemon
-	}
+    public void setPokemonBag(ArrayList<Pokemon> pokemonBag) {
+        this.pokemonBag = pokemonBag;
+    }
 
-	public ArrayList<Pokemon> getPokemonBag() {
-		return pokemonBag;
-	}
+    public ArrayList<Items> getPotionBag() {
+        return potionBag;
+    }
 
-	public void setPokemonBag(ArrayList<Pokemon> pokemonBag) {
-		this.pokemonBag = pokemonBag;
-	}
-
-	public ArrayList<Items> getPotionBag() {
-		return potionBag;
-	}
-
-	public void setPotionBag(ArrayList<Items> potionBag) {
-		this.potionBag = potionBag;
-	}
+    public void setPotionBag(ArrayList<Items> potionBag) {
+        this.potionBag = potionBag;
+    }
 }

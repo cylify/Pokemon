@@ -8,30 +8,49 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Image;
 import java.awt.GridLayout;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import javax.swing.JLabel;
 
 
 public class UIPokemonPanel extends JPanel {
     private JButton[] pokemons;
-    private Player p;
+    private HumanPlayer p;
     private UIBattlePanel battlePanel;
     private CardLayout cardLayout;
     private JPanel mainPanel;
     private ActionListener[] actionListeners;
     private UIMovePanel movePanel;
-    private UIHP hp;
-    
 
-    public UIPokemonPanel(Player p, UIBattlePanel battlePanel, CardLayout cardLayout, JPanel mainPanel, UIMovePanel movePanel, UIHP hp) {
+    public UIPokemonPanel(HumanPlayer p, UIBattlePanel battlePanel, CardLayout cardLayout, JPanel mainPanel, UIMovePanel movePanel) {
         this.p = p;
         this.battlePanel = battlePanel;
         this.movePanel = movePanel;
         this.cardLayout = cardLayout;
         this.mainPanel = mainPanel;
-        this.hp = hp;
         setLayout(new BorderLayout());
         JPanel pokePanel = new JPanel(new GridLayout(2,2));
+        createPokemonLabel();
         createPokemonButtons(pokePanel);
         createBackButton();
+    }
+
+    public void createPokemonLabel() {
+        JLabel potionExclaim = new JLabel("THESE ARE YOUR POK\u00C9MONS!");
+        try {
+            InputStream inputStream = new BufferedInputStream(new FileInputStream(
+                    "C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/pokemon-stadium-2.ttf"));
+            Font font = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+            font = font.deriveFont(26f);
+            potionExclaim.setFont(font);
+        } catch (IOException | FontFormatException e) {
+            potionExclaim.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 10));
+        }
+        add(potionExclaim, BorderLayout.NORTH);
     }
 
     public void createPokemonButtons(JPanel pokePanel) {
@@ -45,7 +64,7 @@ public class UIPokemonPanel extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     changePokemon(index);
                     movePanel.updateMoveButtons();
-                    hp.updateHP(p);
+                    UIHP.updateHP(p.getCurrentPokemon());
                 }
             };
             pokemons[i].addActionListener(actionListeners[i]);
@@ -71,9 +90,9 @@ public class UIPokemonPanel extends JPanel {
         p.setCurrentPokemon(temp);
         ImageIcon icon = new ImageIcon(temp.getImg());
         Image image = icon.getImage();
-        Image newimg = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+        Image newimg = image.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH);
         icon = new ImageIcon(newimg);
-        battlePanel.label.setIcon(icon);
+        battlePanel.humanPlayerPokemonLabel.setIcon(icon);
         battlePanel.repaint();
         cardLayout.show(mainPanel, "battle");
         pokemons[index].setEnabled(false);

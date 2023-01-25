@@ -1,17 +1,11 @@
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
-
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
-import java.awt.Insets;
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
 import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -25,7 +19,7 @@ import java.awt.Image;
 public class UIBagPanel extends JPanel {
     private JButton[] potionButtons;
 
-    public UIBagPanel(Player player) throws IOException, FontFormatException {
+    public UIBagPanel(HumanPlayer player) throws IOException, FontFormatException {
         setLayout(new BorderLayout());
 
         JLabel potionExclaim = new JLabel("THESE ARE YOUR POTIONS!");
@@ -45,10 +39,26 @@ public class UIBagPanel extends JPanel {
         potionButtons = new JButton[4];
         for (int i = 0; i < potionButtons.length; ++i) {
             potionButtons[i] = new JButton(player.getPotionBag().get(i).getName());
+            if (player.getCurrentPokemon().getStatus().getCurrentStatus().equals(player.getPotionBag().get(i).getHealing())) {
+                potionButtons[i].setEnabled(true);
+            } else {
+                potionButtons[i].setEnabled(false);
+            }
+            potionButtons[i].addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    player.getCurrentPokemon().setStatus(new Status("Normal"));
+                }
+            });
             potionButtonPanel.add(potionButtons[i]);
         }
         add(potionButtonPanel, BorderLayout.CENTER);
-
+        createBackButton();
+        setBackground(Color.WHITE);
+    }
+    
+    
+    public void createBackButton() {
         ImageIcon backImg = new ImageIcon(
                 "C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/BackButton.jpg");
         Image image = backImg.getImage(); // transform it
@@ -63,7 +73,5 @@ public class UIBagPanel extends JPanel {
         });
         backButton.setPreferredSize(new Dimension(50, 50));
         add(backButton, BorderLayout.SOUTH);
-
-        setBackground(Color.WHITE);
     }
 }

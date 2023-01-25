@@ -9,31 +9,55 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import javax.swing.JLabel;
 
 public class UIMovePanel extends JPanel {
-    private Player player;
+    private HumanPlayer hplayer;
+    private Computer comp;
     private ArrayList<JButton> moveButtons;
     private JButton backButton;
     private ImageIcon backButtonIcon;
 
-    public UIMovePanel(Player player) {
-        this.player = player;
+    public UIMovePanel(HumanPlayer hplayer, Computer comp) {
+        this.hplayer = hplayer;
+        this.comp = comp;
         moveButtons = new ArrayList<>();
         JPanel moveButtonsPanel = new JPanel(new GridLayout(2, 2));
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(300, 400));
+        createMoveLabel();
         createMoveButtons(moveButtonsPanel);
         createBackButton();
         setBackground(Color.WHITE);
     }
 
+    public void createMoveLabel() {
+        JLabel potionExclaim = new JLabel("THESE ARE YOUR MOVES!");
+        try {
+            InputStream inputStream = new BufferedInputStream(new FileInputStream(
+                    "C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/pokemon-stadium-2.ttf"));
+            Font font = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+            font = font.deriveFont(26f);
+            potionExclaim.setFont(font);
+        } catch (IOException | FontFormatException e) {
+            potionExclaim.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 10));
+        }
+        add(potionExclaim, BorderLayout.NORTH);
+    }
+    
     private void createMoveButtons(JPanel moveButtonsPanel) {
-        for (Move move : player.getCurrentPokemon().getMoves()) {
+        for (Move move : hplayer.getCurrentPokemon().getMoves()) {
             JButton moveButton = new JButton(move.getName());
             moveButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    player.getCurrentPokemon().attack(move, player.getCurrentPokemon(), player.getDefendingPokemon());
+                    
                 }
             });
             moveButtonsPanel.add(moveButton);
@@ -62,12 +86,12 @@ public class UIMovePanel extends JPanel {
     public void updateMoveButtons() {
         moveButtons.clear();
         JPanel moveButtonsPanel = new JPanel(new GridLayout(2, 2));
-        for (Move move : player.getCurrentPokemon().getMoves()) {
+        for (Move move : hplayer.getCurrentPokemon().getMoves()) {
             JButton moveButton = new JButton(move.getName());
             moveButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    player.getCurrentPokemon().attack(move, player.getCurrentPokemon(), player.getDefendingPokemon());
+                    
                 }
             });
             moveButtonsPanel.add(moveButton);
@@ -79,12 +103,12 @@ public class UIMovePanel extends JPanel {
         repaint();
     }
 
-    public Player getPlayer() {
-        return player;
+    public HumanPlayer gethplayer() {
+        return hplayer;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
+    public void sethplayer(HumanPlayer hplayer) {
+        this.hplayer = hplayer;
     }
 
     public ArrayList<JButton> getMoveButtons() {

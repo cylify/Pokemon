@@ -28,6 +28,7 @@ public class Pokemon {
 		this.moves = getPokemonMoves();
 		this.img = img;
 		this.isFeinted = false;
+		this.status = new Status();
 	}
 
 
@@ -73,50 +74,46 @@ public class Pokemon {
 
 	public static Integer toInteger(String type) {
 		if(type.equals("Normal")) {
-			return 1;
+			return 0;
 		} else if (type.equals("Fighting")) {
-			return 2;
+			return 1;
 		} else if (type.equals("Flying")) {
-			return 3;
+			return 2;
 		} else if (type.equals("Poison")) {
-			return 4;
+			return 3;
 		} else if (type.equals("Ground")) {
-			return 5;
+			return 4;
 		} else if (type.equals("Rock")) {
-			return 6;
+			return 5;
 		} else if (type.equals("Bug")) {
-			return 7;
+			return 6;
 		} else if (type.equals("Ghost")) {
-			return 8;
+			return 7;
 		} else if (type.equals("Steel")) {
-			return 9;
+			return 8;
 		} else if (type.equals("Fire")) {
-			return 10;
+			return 9;
 		} else if (type.equals("Water")) {
-			return 11;
+			return 10;
 		} else if (type.equals("Grass")) {
-			return 12;
+			return 11;
 		} else if (type.equals("Electric")) {
-			return 13;
+			return 12;
 		} else if (type.equals("Psychic")) {
-			return 14;
+			return 13;
 		} else if (type.equals("Ice")) {
-			return 15;
+			return 14;
 		} else if (type.equals("Dragon")) {
-			return 16;
+			return 15;
 		} else if (type.equals("Dark")) {
-			return 17;
+			return 16;
 		} else if (type.equals("Fairy")) {
-			return 18;
+			return 17;
 		} else {
 			return null;
 		}
 	}
 
-	public int attack(Move move, Pokemon attacker, Pokemon defender) {
-		return (int) (Math.round(2 * move.getDmg() * ((attacker.getAttack() / defender.getDefense()) / 50.0 + 2)
-				* Multiplier.getMultiplier(attacker, defender) * 5));
-	}
 
 
 	public String getName() {
@@ -227,4 +224,5 @@ public class Pokemon {
 	public void setFeinted(boolean isFeinted) {
 		this.isFeinted = isFeinted;
 	}
+
 }

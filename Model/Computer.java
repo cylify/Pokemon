@@ -1,15 +1,10 @@
 import java.util.ArrayList;
+import java.util.Random;
 
-public class Computer {
-    private ArrayList<Pokemon> pokemonBag;
-    private Pokemon currentPokemon;
-    private ArrayList<Items> potionBag;
+public class Computer extends Player {
 
     public Computer() {
-        this.pokemonBag = new ArrayList<>();
-        this.potionBag = new ArrayList<>();
-        fillPokemonBag();
-        fillPotionBag();
+        super();
     }
 
     public void fillPokemonBag() {
@@ -38,23 +33,28 @@ public class Computer {
         return this.currentPokemon;
     }
 
+    /**
+     * Randomly select pokemon
+     */
     public void selectPokemon() {
-        // Code to randomly select a Pokemon from the computer player's bag
         int randomIndex = (int) (Math.random() * this.pokemonBag.size());
         this.currentPokemon = this.pokemonBag.get(randomIndex);
     }
 
+    /**
+     * Randomly select move of current pokemon
+     */
     public Move selectMove() {
-        // Code to randomly select a move from the computer player's current Pokemon
-        Move[] moves = this.currentPokemon.getMoves();
-        int randomIndex = (int) (Math.random() * moves.length);
-        return moves[randomIndex];
+        Random rand = new Random();
+        Move move = getCurrentPokemon().getMoves()[rand.nextInt(getCurrentPokemon().getMoves().length)];
+        attack(move, getCurrentPokemon(), getDefendingPokemon());
+        return move;
     }
 
-    public void attack(Player player) {
-        // Code to make the computer player's current Pokemon attack the player's
-        // defending Pokemon
-        Move move = selectMove();
-        this.currentPokemon.attack(move, this.currentPokemon, player.getDefendingPokemon());
+    public boolean hasItemForStatus(Pokemon pokemon, ArrayList<Items> potionBag) {
+        for(Items i : potionBag) {
+            if(i.getHealing().equals(pokemon.getStatus().getCurrentStatus())) return true;
+        }
+        return false;
     }
 }

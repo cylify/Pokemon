@@ -24,7 +24,7 @@ public class Multiplier {
 			while(in.hasNextLine()) {
 				String line = in.nextLine();
 				String key = line.substring(0, line.indexOf(","));
-				line.replace(line.substring(0, line.indexOf(",")), "");
+				line = line.replace(line.substring(0, line.indexOf(",") + 1), "");
 				ArrayList<Double> temp = new ArrayList<>();
 				for(String s : line.split(",")) {
 					temp.add(Double.valueOf(s));
