@@ -43,7 +43,9 @@ public class UIBagPanel extends JPanel {
         potionButtons = new JButton[player.getPotionBag().size()];
         for (int i = 0; i < potionButtons.length; ++i) {
             potionButtons[i] = new JButton(player.getPotionBag().get(i).getName());
-            if (player.getCurrentPokemon().getStatus().getCurrentStatus().equals(player.getPotionBag().get(i).getHealing())) {
+            if((!player.getCurrentPokemon().getStatus().getCurrentStatus().equals("Normal")) && player.getPotionBag().get(i).getHealing().equals("All")) {
+                potionButtons[i].setEnabled(true);
+            } else if(player.getCurrentPokemon().getStatus().getCurrentStatus().equals(player.getPotionBag().get(i).getHealing())) {
                 potionButtons[i].setEnabled(true);
             } else {
                 potionButtons[i].setEnabled(false);
@@ -52,7 +54,6 @@ public class UIBagPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     player.getCurrentPokemon().setStatus(new Status());
-                    
                     Main.c.show(Main.main, "battle");
                 }
             });

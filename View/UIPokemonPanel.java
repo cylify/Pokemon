@@ -82,7 +82,6 @@ public class UIPokemonPanel extends JPanel {
                     comp.playComp(p.getCurrentPokemon());
                     battlePanel.updateComputerPokemon(comp);
                     Main.c.show(Main.main, "battle");
-                    Main.checkWinner();
                 }
             };
             pokemons[i].addActionListener(actionListeners[i]);

@@ -65,18 +65,17 @@ public class UIMovePanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Main.c.show(Main.main, "battle");
-                    comp.getCurrentPokemon().checkCurrenthp();
-                    comp.playComp(hplayer.getCurrentPokemon());
-                    battlePanel.updateComputerPokemon(comp);
-                    UIBattlePanel.getHumanPlayerHP().updateHP(hplayer.getCurrentPokemon());
-                    hplayer.getCurrentPokemon().checkCurrenthp();
                     if(hplayer.getCurrentPokemon().isFeinted()) {
                         moveButton.setEnabled(false);
                         JOptionPane.showMessageDialog(null, "Switch pokemons, your current Pok\u00E9mon has fainted");
                     } else 
                         hplayer.attack(comp, move);
+                    comp.getCurrentPokemon().checkCurrenthp();
+                    comp.playComp(hplayer.getCurrentPokemon());
+                    battlePanel.updateComputerPokemon(comp);
+                    UIBattlePanel.getHumanPlayerHP().updateHP(hplayer.getCurrentPokemon());
+                    hplayer.getCurrentPokemon().checkCurrenthp();
                     Main.c.show(Main.main, "battle");
-                    Main.checkWinner();
 
                 }
             });
@@ -124,7 +123,6 @@ public class UIMovePanel extends JPanel {
                     } else 
                         hplayer.attack(comp, move);
                     Main.c.show(Main.main, "battle");
-                    Main.checkWinner();
                 }
             });
             moveButtonsPanel.add(moveButton);

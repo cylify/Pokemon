@@ -75,7 +75,7 @@ public class HumanPlayer extends Player {
         for(SpecialMoves specialMove : SpecialMoves.readFile()) {
             // Apply status if it is a special move and hits special chance
             if(specialMove.getName().equals(move.getName())) {
-                if(rand.nextInt(0, 4) == 0)
+                if(rand.nextInt(1, 101) < specialMove.getChance())
                     defender.setStatus(new Status(specialMove.getStatus()));
                 else
                     defender.setStatus(new Status("Normal"));

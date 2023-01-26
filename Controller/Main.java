@@ -43,11 +43,13 @@ public class Main extends JFrame {
         if(player.allPokemonFeinted()) {
             UIEndPanel endPanel = new UIEndPanel();
             endPanel.setWinner("Computer player has won!");
+            endPanel.setVisible(true);
             Main.main.add(endPanel);
             Main.main.revalidate();
         } else if(comp.allPokemonFeinted()) {
             UIEndPanel endPanel = new UIEndPanel();
             endPanel.setWinner("Human player has won!");
+            endPanel.setVisible(true);
             Main.main.add(endPanel);
             Main.main.revalidate();
         }

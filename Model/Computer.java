@@ -36,18 +36,23 @@ public class Computer extends Player {
 
         if(getCurrentPokemon().isFeinted()) {
             checkFeintedPokemon();
+            Main.checkWinner();
         } else if(getCurrentPokemon().getStatus().getCurrentStatus().equals("Normal")) {
             if(random == 0) {
                 playMoveTurn(selectMove(), defender);
+                Main.checkWinner();
             } else {
                 selectPokemon();
+                Main.checkWinner();
             }
         } else {
             if(hasItemForStatus(getCurrentPokemon(), getPotionBag())) {
                 removePotion(getPotionBag(), getCurrentPokemon().getStatus());
                 getCurrentPokemon().setStatus(new Status());
+                Main.checkWinner();
             } else {
                 getCurrentPokemon().setFeinted(true);
+                Main.checkWinner();
             }
         }
     }
