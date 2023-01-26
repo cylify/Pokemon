@@ -26,12 +26,44 @@ public class Computer extends Player {
         ArrayList<Items> potions = Items.readFile();
         Main.mix(potions);
 
-        for(int i = 0; i < 4; ++i) {
+        for(int i = 0; i < potions.size(); ++i) {
             potionBag.add(potions.get(i));
         }
     }
+    public void playComp(HumanPlayer p) {
+        Random rand = new Random();
+        int random = rand.nextInt(2);
 
-    
+        if (getCurrentPokemon().getStatus().getCurrentStatus().equals("Normal")) {
+            if(random == 0) {
+                playMoveTurn(p, selectMove());
+            } else {
+                selectPokemon();
+            }
+        } else {
+            if(hasItemForStatus(getCurrentPokemon(), getPotionBag())) {
+                removePotion(getPotionBag(), getCurrentPokemon().getStatus());
+                getCurrentPokemon().setStatus(new Status());
+            } else {
+                getCurrentPokemon().setFeinted(true);
+            }
+        }
+    }
+
+    public void inflictsStatus(Move move, Pokemon defender) {
+        Random rand = new Random();
+        // Go through all special moves in special moves file
+        for(SpecialMoves specialMove : SpecialMoves.readFile()) {
+            // Apply status if it is a special move and hits special chance 
+            if(specialMove.getName().equals(move.getName())) {
+                if(rand.nextInt(1,101) < specialMove.getChance())
+                    defender.setStatus(new Status(specialMove.getStatus()));
+                else
+                    defender.setStatus(new Status("Normal"));
+            }
+        }
+    }
+
     /** 
      * @param currentPokemon
      */
@@ -51,8 +83,14 @@ public class Computer extends Player {
      * Randomly select pokemon
      */
     public void selectPokemon() {
-        int randomIndex = (int) (Math.random() * this.pokemonBag.size());
-        this.currentPokemon = this.pokemonBag.get(randomIndex);
+        Random rand = new Random();
+        int num = rand.nextInt(pokemonBag.size());
+        Pokemon tempPoke = pokemonBag.get(num);
+        while(tempPoke != this.currentPokemon) {
+            num = rand.nextInt(pokemonBag.size());
+            tempPoke = pokemonBag.get(num);
+            this.currentPokemon = tempPoke;
+        }
     }
 
     /**
@@ -76,5 +114,60 @@ public class Computer extends Player {
             if(i.getHealing().equals(pokemon.getStatus().getCurrentStatus())) return true;
         }
         return false;
+    }
+
+    /**
+     * Get the damage of a move
+     * 
+     * @param move
+     * @param attacker
+     * @param defender
+     * @return int
+     */
+    public int dmgOfMove(Move move, Pokemon attacker, Pokemon defender) {
+        int dmg = (int) ((((2 * Double.valueOf(move.getDmg()) * ((Double.valueOf(attacker.getAttack()) /
+                Double.valueOf(defender.getDefense())) / 50.0)) + 2.0))
+                * Multiplier.getMultiplier(attacker, defender) * 5.0);
+
+        return dmg;
+    }
+
+    /**
+     * Checks if move has status effect
+     * 
+     * @param move
+     * @return boolean
+     */
+    public boolean isInflictable(Move move) {
+        for (SpecialMoves specialMove : SpecialMoves.readFile()) {
+            if (specialMove.getName().equals(move.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Pokemon getRandPokemon() {
+        Random rand = new Random();
+        return pokemonBag.get(rand.nextInt(pokemonBag.size()));
+    }
+
+
+
+    /**
+     * Attack human with move
+     * 
+     * @param humanPlayer
+     * @param move
+     */
+    public void attack(HumanPlayer humanPlayer, Move move) {
+        int damage = dmgOfMove(move, currentPokemon, humanPlayer.getCurrentPokemon());
+        humanPlayer.getCurrentPokemon().setCurrentHp(humanPlayer.getCurrentPokemon().getCurrentHp() - damage);
+        if (isInflictable(move))
+            inflictsStatus(move, humanPlayer.getCurrentPokemon());
+    }
+
+    public void playMoveTurn(HumanPlayer player, Move move) {
+        attack(player, move);
     }
 }

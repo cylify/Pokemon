@@ -6,10 +6,12 @@ import java.util.Scanner;
 public class SpecialMoves {
 	private String name;
 	private String status;
+	private Double chance;
 
-	public SpecialMoves(String name, String status) {
+	public SpecialMoves(String name, String status, Double chance) {
 		this.name = name;
 		this.status = status;
+		this.chance = chance;
 	}
 
 	
@@ -25,7 +27,7 @@ public class SpecialMoves {
 			while(in.hasNextLine()) {
 				String line = in.nextLine();
 				String temp[] = line.split(",");
-				specialMoves.add(new SpecialMoves(temp[0], temp[1]));
+				specialMoves.add(new SpecialMoves(temp[0], temp[1], 33.33));
 			}
 			in.close();
 		} catch(FileNotFoundException e) {
@@ -64,6 +66,16 @@ public class SpecialMoves {
 	 */
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+
+	public Double getChance() {
+		return chance;
+	}
+
+
+	public void setChance(Double chance) {
+		this.chance = chance;
 	}
 
 }

@@ -35,8 +35,8 @@ public class UIBagPanel extends JPanel {
         add(potionExclaim, BorderLayout.NORTH);
 
         // Create a new panel with GridLayout to hold the potion buttons
-        JPanel potionButtonPanel = new JPanel(new GridLayout(2, 2));
-        potionButtons = new JButton[4];
+        JPanel potionButtonPanel = new JPanel(new GridLayout(3, 2));
+        potionButtons = new JButton[player.getPotionBag().size()];
         for (int i = 0; i < potionButtons.length; ++i) {
             potionButtons[i] = new JButton(player.getPotionBag().get(i).getName());
             if (player.getCurrentPokemon().getStatus().getCurrentStatus().equals(player.getPotionBag().get(i).getHealing())) {
@@ -47,7 +47,8 @@ public class UIBagPanel extends JPanel {
             potionButtons[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    player.getCurrentPokemon().setStatus(new Status("Normal"));
+                    player.getCurrentPokemon().setStatus(new Status());
+                    
                     Main.c.show(Main.main, "battle");
                 }
             });

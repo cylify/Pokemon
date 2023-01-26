@@ -19,13 +19,14 @@ public class Main extends JFrame {
         Computer comp = new Computer();
         UIStartScreen start = new UIStartScreen(c, main);
         UIBattlePanel battlePanel = new UIBattlePanel(player, comp);
-        UIMovePanel movePanel = new UIMovePanel(player, comp);
+        UIMovePanel movePanel = new UIMovePanel(player, comp, battlePanel);
+        UIOptionPanel optionPanel = new UIOptionPanel();
         main.add(start, "start");
         c.show(main, "start");
         main.add(new UIOptionPanel(), "option");
         main.add(new UIBagPanel(player), "bag");
-        main.add(new UIOptionPanel(), "option");
-        main.add(new UIPokemonPanel(player, battlePanel, movePanel), "pokemon");
+        main.add(optionPanel, "option");
+        main.add(new UIPokemonPanel(player, battlePanel, movePanel, comp, optionPanel), "pokemon");
         main.add(movePanel, "fight");
         main.add(battlePanel, "battle");
         add(main);
@@ -35,23 +36,6 @@ public class Main extends JFrame {
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-
-    public void addPanels() throws IOException, FontFormatException {
-        HumanPlayer player = new HumanPlayer();
-        Computer comp = new Computer();
-        UIStartScreen start = new UIStartScreen(c, main);
-        UIBattlePanel battlePanel = new UIBattlePanel(player, comp);
-        UIMovePanel movePanel = new UIMovePanel(player, comp);
-        main.add(start, "start");
-        c.show(main, "start");
-        main.add(new UIOptionPanel(), "option");
-        main.add(new UIBagPanel(player), "bag");
-        main.add(new UIOptionPanel(), "option");
-        main.add(new UIPokemonPanel(player, battlePanel, movePanel), "pokemon");
-        main.add(movePanel, "fight");
-        main.add(battlePanel, "battle");
-    }
-
     
     /** 
      * @param arr

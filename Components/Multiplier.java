@@ -57,8 +57,8 @@ public class Multiplier {
 	 * @return Double
 	 */
 	public static Double getMultiplier(Pokemon attacker, Pokemon defender) {
+		// get the multiplier
 		Double mult = multipliers.get(attacker.getType()).get(Pokemon.toInteger(defender.getType()));
-		System.out.println(mult);
 		return mult;
 	}
 }

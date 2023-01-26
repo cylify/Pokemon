@@ -6,7 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class UIOptionPanel extends JPanel {
-    JButton fight,bag,run,pokemon;
+    public static JButton fight, bag, run, pokemon;
 
     public UIOptionPanel() {
         setLayout(new GridLayout(1, 4, 5, 5));
@@ -50,5 +50,37 @@ public class UIOptionPanel extends JPanel {
             }
         });
         add(run);
+    }
+
+    public JButton getFight() {
+        return fight;
+    }
+
+    public void setFight(JButton fight) {
+        this.fight = fight;
+    }
+
+    public JButton getBag() {
+        return bag;
+    }
+
+    public void setBag(JButton bag) {
+        this.bag = bag;
+    }
+
+    public JButton getRun() {
+        return run;
+    }
+
+    public void setRun(JButton run) {
+        this.run = run;
+    }
+
+    public JButton getPokemon() {
+        return pokemon;
+    }
+
+    public void setPokemon(JButton pokemon) {
+        this.pokemon = pokemon;
     }
 }

@@ -25,7 +25,7 @@ public class HumanPlayer extends Player {
         ArrayList<Items> potions = Items.readFile();
         Main.mix(potions);
 
-        for (int i = 0; i < 4; ++i) {
+        for (int i = 0; i < potions.size(); ++i) {
             potionBag.add(potions.get(i));
         }
     }
@@ -42,9 +42,6 @@ public class HumanPlayer extends Player {
         int dmg = (int) ((((2 * Double.valueOf(move.getDmg()) * ((Double.valueOf(attacker.getAttack()) /
                 Double.valueOf(defender.getDefense())) / 50.0)) + 2.0))
                 * Multiplier.getMultiplier(attacker, defender) * 5.0);
-				System.out.println(defender.getDefense());
-		System.out.println(attacker.getAttack());
-		System.out.println(move.getDmg());
 				
         return dmg;
     }
@@ -67,13 +64,15 @@ public class HumanPlayer extends Player {
 
     
     /** 
-     * Sets status
+     * Sets special move status
      * @param move
      * @param defender
      */
     public void inflictsStatus(Move move, Pokemon defender) {
         Random rand = new Random();
+        // Go through all special moves in special moves file
         for(SpecialMoves specialMove : SpecialMoves.readFile()) {
+            // Apply status if it is a special move and hits special chance
             if(specialMove.getName().equals(move.getName())) {
                 if(rand.nextInt(0, 4) == 0)
                     defender.setStatus(new Status(specialMove.getStatus()));
@@ -91,7 +90,6 @@ public class HumanPlayer extends Player {
      */
     public void attack(Computer computerPlayer, Move move) {
         int damage = dmgOfMove(move, currentPokemon, computerPlayer.getCurrentPokemon());
-		System.out.println(damage);
         computerPlayer.getCurrentPokemon().setCurrentHp(computerPlayer.getCurrentPokemon().getCurrentHp() - damage);
         if(isInflictable(move))
 			inflictsStatus(move, computerPlayer.getCurrentPokemon());

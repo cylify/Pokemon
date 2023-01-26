@@ -21,6 +21,15 @@ public abstract class Player {
 
     public abstract void fillPotionBag();
 
+
+    public void removePotion(ArrayList<Items> potions, Status status) {
+        for(Items item : potions) {
+            if(item.getName().equals(status.getCurrentStatus())) {
+                potions.remove(item);
+            }
+        }
+    }
+
     
     /** 
      * @param move

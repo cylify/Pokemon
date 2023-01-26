@@ -2,7 +2,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -12,9 +11,12 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Random;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import javax.swing.JLabel;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 public class UIPokemonPanel extends JPanel {
@@ -23,11 +25,15 @@ public class UIPokemonPanel extends JPanel {
     private UIBattlePanel battlePanel;
     private ActionListener[] actionListeners;
     private UIMovePanel movePanel;
+    private Computer comp;
+    private UIOptionPanel optionPanel;
 
-    public UIPokemonPanel(HumanPlayer p, UIBattlePanel battlePanel, UIMovePanel movePanel) {
+    public UIPokemonPanel(HumanPlayer p, UIBattlePanel battlePanel, UIMovePanel movePanel, Computer comp, UIOptionPanel optionPanel) {
         this.p = p;
         this.battlePanel = battlePanel;
         this.movePanel = movePanel;
+        this.comp = comp;
+        this.optionPanel = optionPanel;
         setLayout(new BorderLayout());
         JPanel pokePanel = new JPanel(new GridLayout(2,2));
         createPokemonLabel();
@@ -36,10 +42,12 @@ public class UIPokemonPanel extends JPanel {
     }
 
     public void createPokemonLabel() {
+        Path textPath = Paths.get("Pokemon/Assets/", "pokemon-stadium-2.ttf");
+        String textPathAsString = textPath.toString();
         JLabel potionExclaim = new JLabel("THESE ARE YOUR POK\u00C9MONS!");
         try {
             InputStream inputStream = new BufferedInputStream(new FileInputStream(
-                    "C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/pokemon-stadium-2.ttf"));
+                    textPathAsString));
             Font font = Font.createFont(Font.TRUETYPE_FONT, inputStream);
             font = font.deriveFont(26f);
             potionExclaim.setFont(font);
@@ -63,7 +71,25 @@ public class UIPokemonPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     changePokemon(index);
+                    p.getCurrentPokemon().checkCurrenthp();
+                    if(p.getCurrentPokemon().isFeinted()) {
+                        
+                        int nextPokemonIndex = -1;
+                        for (int j = 0; j < p.getPokemonBag().size(); j++) {
+                            if (j != index && !p.getPokemonBag().get(j).isFeinted()) {
+                                nextPokemonIndex = j;
+                                break;
+                            }
+                        }
+                        disableButtonSwitch();
+                        changePokemon(nextPokemonIndex);
+                        pokemons[index].setEnabled(false);
+                    }
                     movePanel.updateMoveButtons();
+                    Main.c.show(Main.main, "battle");
+                    UIBattlePanel.getHumanPlayerHP().updateHP(p.getCurrentPokemon());
+                    comp.playComp(p);
+                    battlePanel.updateComputerPokemon(comp);
                     Main.c.show(Main.main, "battle");
                 }
             };
@@ -92,7 +118,7 @@ public class UIPokemonPanel extends JPanel {
         }
         Pokemon temp = p.getPokemonBag().get(index);
         p.setCurrentPokemon(temp);
-        ImageIcon icon = new ImageIcon(temp.getImg());
+        ImageIcon icon = new ImageIcon(temp.getBackimg());
         Image image = icon.getImage();
         Image newimg = image.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH);
         icon = new ImageIcon(newimg);
@@ -122,6 +148,13 @@ public class UIPokemonPanel extends JPanel {
         backButton.setPreferredSize(new Dimension(50, 50));
         add(backButton, BorderLayout.SOUTH);
     }
+
+
+    public void disableButtonSwitch() {
+        optionPanel.getBag().setEnabled(false);
+        optionPanel.getFight().setEnabled(false);
+    }
+
 
     
     /** 

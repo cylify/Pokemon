@@ -13,10 +13,12 @@ public class Pokemon {
 	private int currentHp;
 	private Move[] moves;
 	private Status status;
-	private String img;
+	private String Backimg;
+	private String Frontimg;
 	private boolean isFeinted;
 
-	public Pokemon(int number, String name, String type, int health, int attack, int defense, String img) {
+	public Pokemon(int number, String name, String type, int health, int attack, int defense, String Backimg, 
+			String Frontimg) {
 		this.number = number;
 		this.name = name;
 		this.type = type;
@@ -26,7 +28,8 @@ public class Pokemon {
 		this.defense = defense;
 		this.moves = new Move[4];
 		this.moves = getPokemonMoves();
-		this.img = img;
+		this.Backimg = Backimg;
+		this.Frontimg = Frontimg;
 		this.isFeinted = false;
 		this.status = new Status();
 	}
@@ -48,6 +51,8 @@ public class Pokemon {
 				pokemonInfo.add(new Pokemon(Integer.valueOf(temp[0]), temp[1], temp[2], Integer.valueOf(temp[3]), 
 				Integer.valueOf(temp[4]), Integer.valueOf(temp[5]), 
 						"C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/back/"
+								+ String.valueOf(temp[0]) + ".png", 
+						"C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/front/"
 								+ String.valueOf(temp[0]) + ".png"));
 			}
 			in.close();
@@ -83,6 +88,12 @@ public class Pokemon {
 			return p;
 		}
 		return null;
+	}
+
+	public void checkCurrenthp() {
+		if(this.currentHp <= 0) {
+			this.isFeinted = true;
+		}
 	}
 
 	
@@ -278,23 +289,6 @@ public class Pokemon {
 	}
 
 
-	
-	/** 
-	 * @return String
-	 */
-	public String getImg() {
-		return img;
-	}
-
-
-	
-	/** 
-	 * @param img
-	 */
-	public void setImg(String img) {
-		this.img = img;
-	}
-
 
 	
 	/** 
@@ -329,6 +323,30 @@ public class Pokemon {
 	 */
 	public void setFeinted(boolean isFeinted) {
 		this.isFeinted = isFeinted;
+	}
+
+
+
+	public String getBackimg() {
+		return Backimg;
+	}
+
+
+
+	public void setBackimg(String backimg) {
+		Backimg = backimg;
+	}
+
+
+
+	public String getFrontimg() {
+		return Frontimg;
+	}
+
+
+
+	public void setFrontimg(String frontimg) {
+		Frontimg = frontimg;
 	}
 
 }

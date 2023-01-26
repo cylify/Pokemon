@@ -21,12 +21,14 @@ public class UIMovePanel extends JPanel {
     private HumanPlayer hplayer;
     private Computer comp;
     private ArrayList<JButton> moveButtons;
+    private UIBattlePanel battlePanel;
     private JButton backButton;
     private ImageIcon backButtonIcon;
 
-    public UIMovePanel(HumanPlayer hplayer, Computer comp) {
+    public UIMovePanel(HumanPlayer hplayer, Computer comp, UIBattlePanel battlePanel) {
         this.hplayer = hplayer;
         this.comp = comp;
+        this.battlePanel = battlePanel;
         moveButtons = new ArrayList<>();
         JPanel moveButtonsPanel = new JPanel(new GridLayout(2, 2));
         setLayout(new BorderLayout());
@@ -58,7 +60,10 @@ public class UIMovePanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     hplayer.attack(comp, move);
-                    UIBattlePanel.getComputerPlayerHP().updateHP(comp.getCurrentPokemon());
+                    Main.c.show(Main.main, "battle");
+                    comp.playComp(hplayer);
+                    battlePanel.updateComputerPokemon(comp);
+                    UIBattlePanel.getHumanPlayerHP().updateHP(hplayer.getCurrentPokemon());
                     Main.c.show(Main.main, "battle");
                 }
             });
@@ -95,6 +100,9 @@ public class UIMovePanel extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     hplayer.attack(comp, move);
                     UIBattlePanel.getComputerPlayerHP().updateHP(comp.getCurrentPokemon());
+                    Main.c.show(Main.main, "battle");
+                    comp.playComp(hplayer);
+                    battlePanel.updateComputerPokemon(comp);
                     Main.c.show(Main.main, "battle");
                 }
             });

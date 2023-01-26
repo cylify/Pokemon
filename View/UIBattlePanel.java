@@ -10,8 +10,8 @@ public class UIBattlePanel extends JPanel {
     private ImageIcon humanPlayerPokemonImg;
     private ImageIcon computerPlayerPokemonImg;
     public JLabel humanPlayerPokemonLabel;
-    private JLabel computerPlayerPokemonLabel;
-    public UIHP humanPlayerHP;
+    public JLabel computerPlayerPokemonLabel;
+    public static UIHP humanPlayerHP;
     public static UIHP computerPlayerHP;
     private JLabel humanPlayerPokemonStatus;
     private JLabel computerPlayerPokemonStatus;
@@ -50,7 +50,7 @@ public class UIBattlePanel extends JPanel {
         JPanel computerPlayerPanel = new JPanel();
         computerPlayerPanel.setLayout(new BorderLayout());
         computerPlayerPokemonImg = new ImageIcon(
-                "C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/front/"
+                "Assets/front/"
                         + String.valueOf(computerPlayer.getCurrentPokemon().getNumber()) + ".png");
         Image computerPlayerImage = computerPlayerPokemonImg.getImage();
         Image computerPlayerNewimg = computerPlayerImage.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH);
@@ -63,7 +63,18 @@ public class UIBattlePanel extends JPanel {
         computerPlayerPokemonStatus.setBackground(Color.WHITE);
         computerPlayerPanel.add(computerPlayerPokemonStatus, BorderLayout.SOUTH);
         add(computerPlayerPanel, BorderLayout.EAST);
+    }
 
+    public void updateComputerPokemon(Computer computerPlayer) {
+        computerPlayerPokemonImg = new ImageIcon(
+                "C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/front/"
+                        + String.valueOf(computerPlayer.getCurrentPokemon().getNumber()) + ".png");
+        Image computerPlayerImage = computerPlayerPokemonImg.getImage();
+        Image computerPlayerNewimg = computerPlayerImage.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH);
+        computerPlayerPokemonImg = new ImageIcon(computerPlayerNewimg);
+        computerPlayerPokemonLabel.setIcon(computerPlayerPokemonImg);
+        computerPlayerHP.updateHP(computerPlayer.getCurrentPokemon());
+        computerPlayerPokemonStatus.setText(computerPlayer.getCurrentPokemon().getStatus().getCurrentStatus());
     }
 
     public ImageIcon getHumanPlayerPokemonImg() {
@@ -98,7 +109,7 @@ public class UIBattlePanel extends JPanel {
         this.computerPlayerPokemonLabel = computerPlayerPokemonLabel;
     }
 
-    public UIHP getHumanPlayerHP() {
+    public static UIHP getHumanPlayerHP() {
         return humanPlayerHP;
     }
 
