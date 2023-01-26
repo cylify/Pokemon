@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Move {
 	private String name;
@@ -21,8 +23,10 @@ public class Move {
 	 */
 	public static ArrayList<Move> readFile() {
 		ArrayList<Move> moves = new ArrayList<>();
+		Path moveFile = Paths.get("Assets/", "moves.csv");
+		String movePath = moveFile.toString();
 		try {
-			File file = new File("C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/moves.csv");
+			File file = new File(movePath);
 			Scanner in = new Scanner(file);
 			while(in.hasNextLine()) {
 				String line = in.nextLine();

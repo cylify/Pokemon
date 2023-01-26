@@ -3,6 +3,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Multiplier {
     private static HashMap<String, ArrayList<Double>> multipliers;
@@ -29,8 +31,10 @@ public class Multiplier {
 	 */
 	public static HashMap<String, ArrayList<Double>> readFile() {
 		HashMap<String, ArrayList<Double>> mults = new HashMap<>();
+		Path filePath = Paths.get("Assets/", "multiplier.csv");
+		String fileString = filePath.toString();
 		try {
-			File file = new File("C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/multiplier.csv");
+			File file = new File(fileString);
 			Scanner in = new Scanner(file);
 			while(in.hasNextLine()) {
 				String line = in.nextLine();

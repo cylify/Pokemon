@@ -30,13 +30,15 @@ public class Computer extends Player {
             potionBag.add(potions.get(i));
         }
     }
-    public void playComp(HumanPlayer p) {
+    public void playComp(Pokemon defender) {
         Random rand = new Random();
         int random = rand.nextInt(2);
 
-        if (getCurrentPokemon().getStatus().getCurrentStatus().equals("Normal")) {
+        if(getCurrentPokemon().isFeinted()) {
+            checkFeintedPokemon();
+        } else if(getCurrentPokemon().getStatus().getCurrentStatus().equals("Normal")) {
             if(random == 0) {
-                playMoveTurn(p, selectMove());
+                playMoveTurn(selectMove(), defender);
             } else {
                 selectPokemon();
             }
@@ -152,7 +154,22 @@ public class Computer extends Player {
         return pokemonBag.get(rand.nextInt(pokemonBag.size()));
     }
 
+    public void checkFeintedPokemon() {
+        if(this.currentPokemon.isFeinted()) {
+            this.pokemonBag.remove(this.currentPokemon);
+            if(!allPokemonFeinted())
+                this.currentPokemon = this.pokemonBag.get(new Random().nextInt(this.pokemonBag.size()));
+        }
+    }
 
+    public boolean allPokemonFeinted() {
+        for(Pokemon pokemon : pokemonBag) {
+            if(!pokemon.isFeinted()) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     /**
      * Attack human with move
@@ -167,7 +184,7 @@ public class Computer extends Player {
             inflictsStatus(move, humanPlayer.getCurrentPokemon());
     }
 
-    public void playMoveTurn(HumanPlayer player, Move move) {
-        attack(player, move);
+    public void playMoveTurn(Move move, Pokemon defender) {
+        attack(move, getCurrentPokemon(), defender);
     }
 }

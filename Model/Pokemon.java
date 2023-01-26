@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Pokemon {
 	private int number;
@@ -41,19 +43,22 @@ public class Pokemon {
 	 */
 	public static ArrayList<Pokemon> readFile() {
 		ArrayList<Pokemon> pokemonInfo = new ArrayList<>();
-		
+		Path filePath = Paths.get("Assets/", "pokemon.csv");
+		String filePathAsString = filePath.toString();
 		try {
-			File file = new File("C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/pokemon.csv");
+			File file = new File(filePathAsString);
 			Scanner in = new Scanner(file);
 			while(in.hasNextLine()) {
 				String line = in.nextLine();
 				String[] temp = line.split(",");
+				Path frontImg = Paths.get("Assets/front", String.valueOf(temp[0]) + ".png");
+				Path backImg = Paths.get("Assets/back", String.valueOf(temp[0]) + ".png");
+				String stringfrontImg = frontImg.toString();
+				String stringbackImg = backImg.toString();
 				pokemonInfo.add(new Pokemon(Integer.valueOf(temp[0]), temp[1], temp[2], Integer.valueOf(temp[3]), 
 				Integer.valueOf(temp[4]), Integer.valueOf(temp[5]), 
-						"C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/back/"
-								+ String.valueOf(temp[0]) + ".png", 
-						"C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/front/"
-								+ String.valueOf(temp[0]) + ".png"));
+						stringbackImg, 
+						stringfrontImg));
 			}
 			in.close();
 		} catch(FileNotFoundException e) {

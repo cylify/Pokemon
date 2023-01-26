@@ -11,10 +11,10 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Random;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -26,14 +26,12 @@ public class UIPokemonPanel extends JPanel {
     private ActionListener[] actionListeners;
     private UIMovePanel movePanel;
     private Computer comp;
-    private UIOptionPanel optionPanel;
 
-    public UIPokemonPanel(HumanPlayer p, UIBattlePanel battlePanel, UIMovePanel movePanel, Computer comp, UIOptionPanel optionPanel) {
+    public UIPokemonPanel(HumanPlayer p, UIBattlePanel battlePanel, UIMovePanel movePanel, Computer comp) {
         this.p = p;
         this.battlePanel = battlePanel;
         this.movePanel = movePanel;
         this.comp = comp;
-        this.optionPanel = optionPanel;
         setLayout(new BorderLayout());
         JPanel pokePanel = new JPanel(new GridLayout(2,2));
         createPokemonLabel();
@@ -42,7 +40,7 @@ public class UIPokemonPanel extends JPanel {
     }
 
     public void createPokemonLabel() {
-        Path textPath = Paths.get("Pokemon/Assets/", "pokemon-stadium-2.ttf");
+        Path textPath = Paths.get("Assets/", "pokemon-stadium-2.ttf");
         String textPathAsString = textPath.toString();
         JLabel potionExclaim = new JLabel("THESE ARE YOUR POK\u00C9MONS!");
         try {
@@ -73,24 +71,18 @@ public class UIPokemonPanel extends JPanel {
                     changePokemon(index);
                     p.getCurrentPokemon().checkCurrenthp();
                     if(p.getCurrentPokemon().isFeinted()) {
+                        JOptionPane.showMessageDialog(null,
+                        "Your current Pokemon is fainted. You must switch Pokemon.");
                         
-                        int nextPokemonIndex = -1;
-                        for (int j = 0; j < p.getPokemonBag().size(); j++) {
-                            if (j != index && !p.getPokemonBag().get(j).isFeinted()) {
-                                nextPokemonIndex = j;
-                                break;
-                            }
-                        }
-                        disableButtonSwitch();
-                        changePokemon(nextPokemonIndex);
-                        pokemons[index].setEnabled(false);
                     }
-                    movePanel.updateMoveButtons();
                     Main.c.show(Main.main, "battle");
+                    movePanel.updateMoveButtons();
                     UIBattlePanel.getHumanPlayerHP().updateHP(p.getCurrentPokemon());
-                    comp.playComp(p);
+                    comp.getCurrentPokemon().checkCurrenthp();
+                    comp.playComp(p.getCurrentPokemon());
                     battlePanel.updateComputerPokemon(comp);
                     Main.c.show(Main.main, "battle");
+                    Main.checkWinner();
                 }
             };
             pokemons[i].addActionListener(actionListeners[i]);
@@ -108,7 +100,7 @@ public class UIPokemonPanel extends JPanel {
     /** 
      * @param index
      */
-    public void changePokemon(int index) {
+        public void changePokemon(int index) {
         int prevIndex = -1;
         for (int j = 0; j < pokemons.length; j++) {
             if (pokemons[j].getText().equals(p.getCurrentPokemon().getName())) {
@@ -117,6 +109,10 @@ public class UIPokemonPanel extends JPanel {
             }
         }
         Pokemon temp = p.getPokemonBag().get(index);
+        if (temp.getHealth() <= 0) {
+            JOptionPane.showMessageDialog(this, "This Pokemon is feinted and cannot be chosen");
+            return;
+        }
         p.setCurrentPokemon(temp);
         ImageIcon icon = new ImageIcon(temp.getBackimg());
         Image image = icon.getImage();
@@ -148,13 +144,6 @@ public class UIPokemonPanel extends JPanel {
         backButton.setPreferredSize(new Dimension(50, 50));
         add(backButton, BorderLayout.SOUTH);
     }
-
-
-    public void disableButtonSwitch() {
-        optionPanel.getBag().setEnabled(false);
-        optionPanel.getFight().setEnabled(false);
-    }
-
 
     
     /** 

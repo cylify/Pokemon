@@ -16,6 +16,9 @@ import java.io.InputStream;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class UIMovePanel extends JPanel {
     private HumanPlayer hplayer;
@@ -40,10 +43,12 @@ public class UIMovePanel extends JPanel {
     }
 
     public void createMoveLabel() {
+        Path textPath = Paths.get("Assets/", "pokemon-stadium-2.ttf");
+        String textPathAsString = textPath.toString();
         JLabel potionExclaim = new JLabel("THESE ARE YOUR MOVES!");
         try {
             InputStream inputStream = new BufferedInputStream(new FileInputStream(
-                    "C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/pokemon-stadium-2.ttf"));
+                    textPathAsString));
             Font font = Font.createFont(Font.TRUETYPE_FONT, inputStream);
             font = font.deriveFont(26f);
             potionExclaim.setFont(font);
@@ -59,12 +64,20 @@ public class UIMovePanel extends JPanel {
             moveButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    hplayer.attack(comp, move);
                     Main.c.show(Main.main, "battle");
-                    comp.playComp(hplayer);
+                    comp.getCurrentPokemon().checkCurrenthp();
+                    comp.playComp(hplayer.getCurrentPokemon());
                     battlePanel.updateComputerPokemon(comp);
                     UIBattlePanel.getHumanPlayerHP().updateHP(hplayer.getCurrentPokemon());
+                    hplayer.getCurrentPokemon().checkCurrenthp();
+                    if(hplayer.getCurrentPokemon().isFeinted()) {
+                        moveButton.setEnabled(false);
+                        JOptionPane.showMessageDialog(null, "Switch pokemons, your current Pok\u00E9mon has fainted");
+                    } else 
+                        hplayer.attack(comp, move);
                     Main.c.show(Main.main, "battle");
+                    Main.checkWinner();
+
                 }
             });
             moveButtonsPanel.add(moveButton);
@@ -98,12 +111,20 @@ public class UIMovePanel extends JPanel {
             moveButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    hplayer.attack(comp, move);
                     UIBattlePanel.getComputerPlayerHP().updateHP(comp.getCurrentPokemon());
                     Main.c.show(Main.main, "battle");
-                    comp.playComp(hplayer);
+                    comp.getCurrentPokemon().checkCurrenthp();
+                    comp.playComp(hplayer.getCurrentPokemon());
                     battlePanel.updateComputerPokemon(comp);
+                    UIBattlePanel.getHumanPlayerHP().updateHP(hplayer.getCurrentPokemon());
+                    hplayer.getCurrentPokemon().checkCurrenthp();
+                    if(hplayer.getCurrentPokemon().isFeinted()) {
+                        moveButton.setEnabled(false);
+                        JOptionPane.showMessageDialog(null, "Switch pokemons, your current Pok\u00E9mon has fainted");
+                    } else 
+                        hplayer.attack(comp, move);
                     Main.c.show(Main.main, "battle");
+                    Main.checkWinner();
                 }
             });
             moveButtonsPanel.add(moveButton);

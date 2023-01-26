@@ -31,8 +31,9 @@ public class HumanPlayer extends Player {
     }
 
     
-    /** 
+    /**
      * Get the damage of a move
+     * 
      * @param move
      * @param attacker
      * @param defender
@@ -42,7 +43,7 @@ public class HumanPlayer extends Player {
         int dmg = (int) ((((2 * Double.valueOf(move.getDmg()) * ((Double.valueOf(attacker.getAttack()) /
                 Double.valueOf(defender.getDefense())) / 50.0)) + 2.0))
                 * Multiplier.getMultiplier(attacker, defender) * 5.0);
-				
+
         return dmg;
     }
 
@@ -93,6 +94,15 @@ public class HumanPlayer extends Player {
         computerPlayer.getCurrentPokemon().setCurrentHp(computerPlayer.getCurrentPokemon().getCurrentHp() - damage);
         if(isInflictable(move))
 			inflictsStatus(move, computerPlayer.getCurrentPokemon());
+    }
+
+    public boolean allPokemonFeinted() {
+        for (Pokemon pokemon : pokemonBag) {
+            if (!pokemon.isFeinted()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     

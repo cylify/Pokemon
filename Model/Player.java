@@ -31,16 +31,19 @@ public abstract class Player {
     }
 
     
-    /** 
+    /**
+     * Get the damage of a move
+     * 
      * @param move
      * @param attacker
      * @param defender
      * @return int
      */
     public int dmgOfMove(Move move, Pokemon attacker, Pokemon defender) {
-        int dmg = (int)((((2.0 * move.getDmg() * ((Double.valueOf(attacker.getAttack())/Double.valueOf(defender.getDefense()))/50.0)))
-                + 2.0) * Multiplier.getMultiplier(attacker, defender) * 5.0);
-                
+        int dmg = (int) ((((2 * Double.valueOf(move.getDmg()) * ((Double.valueOf(attacker.getAttack()) /
+                Double.valueOf(defender.getDefense())) / 50.0)) + 2.0))
+                * Multiplier.getMultiplier(attacker, defender) * 5.0);
+
         return dmg;
     }
 

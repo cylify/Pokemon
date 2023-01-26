@@ -8,6 +8,8 @@ import java.awt.Dimension;
 import java.awt.FontFormatException;
 
 public class Main extends JFrame {
+    public static HumanPlayer player;
+    public static Computer comp;
     static JPanel main;
     static CardLayout c;
 
@@ -15,8 +17,8 @@ public class Main extends JFrame {
         super("Pok\u00E9mon");
         c = new CardLayout();
         main = new JPanel(c);
-        HumanPlayer player = new HumanPlayer();
-        Computer comp = new Computer();
+        player = new HumanPlayer();
+        comp = new Computer();
         UIStartScreen start = new UIStartScreen(c, main);
         UIBattlePanel battlePanel = new UIBattlePanel(player, comp);
         UIMovePanel movePanel = new UIMovePanel(player, comp, battlePanel);
@@ -26,7 +28,7 @@ public class Main extends JFrame {
         main.add(new UIOptionPanel(), "option");
         main.add(new UIBagPanel(player), "bag");
         main.add(optionPanel, "option");
-        main.add(new UIPokemonPanel(player, battlePanel, movePanel, comp, optionPanel), "pokemon");
+        main.add(new UIPokemonPanel(player, battlePanel, movePanel, comp), "pokemon");
         main.add(movePanel, "fight");
         main.add(battlePanel, "battle");
         add(main);
@@ -35,6 +37,20 @@ public class Main extends JFrame {
         pack();
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public static void checkWinner() {
+        if(player.allPokemonFeinted()) {
+            UIEndPanel endPanel = new UIEndPanel();
+            endPanel.setWinner("Computer player has won!");
+            Main.main.add(endPanel);
+            Main.main.revalidate();
+        } else if(comp.allPokemonFeinted()) {
+            UIEndPanel endPanel = new UIEndPanel();
+            endPanel.setWinner("Human player has won!");
+            Main.main.add(endPanel);
+            Main.main.revalidate();
+        }
     }
     
     /** 

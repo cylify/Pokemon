@@ -15,6 +15,8 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Image;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class UIBagPanel extends JPanel {
     private JButton[] potionButtons;
@@ -22,10 +24,12 @@ public class UIBagPanel extends JPanel {
     public UIBagPanel(HumanPlayer player) throws IOException, FontFormatException {
         setLayout(new BorderLayout());
 
+        Path textPath = Paths.get("Assets/", "pokemon-stadium-2.ttf");
+        String textPathAsString = textPath.toString();
         JLabel potionExclaim = new JLabel("THESE ARE YOUR POTIONS!");
         try {
             InputStream inputStream = new BufferedInputStream(new FileInputStream(
-                    "C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/pokemon-stadium-2.ttf"));
+                    textPathAsString));
             Font font = Font.createFont(Font.TRUETYPE_FONT, inputStream);
             font = font.deriveFont(26f);
             potionExclaim.setFont(font);
