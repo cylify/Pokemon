@@ -26,17 +26,35 @@ public class UIPokemonPanel extends JPanel {
     private ActionListener[] actionListeners;
     private UIMovePanel movePanel;
     private Computer comp;
+    private UIEndPanel endPanel;
 
-    public UIPokemonPanel(HumanPlayer p, UIBattlePanel battlePanel, UIMovePanel movePanel, Computer comp) {
+    public UIPokemonPanel(HumanPlayer p, UIBattlePanel battlePanel, UIMovePanel movePanel, Computer comp, UIEndPanel endPanel) {
         this.p = p;
         this.battlePanel = battlePanel;
         this.movePanel = movePanel;
         this.comp = comp;
+        this.endPanel = endPanel;
         setLayout(new BorderLayout());
         JPanel pokePanel = new JPanel(new GridLayout(2,2));
         createPokemonLabel();
         createPokemonButtons(pokePanel);
         createBackButton();
+    }
+
+    public void checkWin() {
+        if(p.allPokemonFeinted()) {
+            endPanel.setWinner("The computer has won!");
+            endPanel.setLoser("You have lost.");
+            endPanel.repaint();
+            endPanel.revalidate();
+            Main.c.show(Main.main, "end");
+        } else if(comp.allPokemonFeinted()) {
+            endPanel.setWinner("You have won!");
+            endPanel.setLoser("The computer has lost.");
+            endPanel.repaint();
+            endPanel.revalidate();
+            Main.c.show(Main.main, "end");
+        }
     }
 
     public void createPokemonLabel() {
@@ -73,7 +91,7 @@ public class UIPokemonPanel extends JPanel {
                     if(p.getCurrentPokemon().isFeinted()) {
                         JOptionPane.showMessageDialog(null,
                         "Your current Pokemon is fainted. You must switch Pokemon.");
-                        
+                        checkWin();
                     }
                     Main.c.show(Main.main, "battle");
                     movePanel.updateMoveButtons();
@@ -82,6 +100,7 @@ public class UIPokemonPanel extends JPanel {
                     comp.playComp(p.getCurrentPokemon());
                     battlePanel.updateComputerPokemon(comp);
                     Main.c.show(Main.main, "battle");
+                    checkWin();
                 }
             };
             pokemons[i].addActionListener(actionListeners[i]);

@@ -50,10 +50,12 @@ public class UIBagPanel extends JPanel {
             } else {
                 potionButtons[i].setEnabled(false);
             }
+            final Integer innerI = i;
             potionButtons[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     player.getCurrentPokemon().setStatus(new Status());
+                    potionButtons[innerI].setEnabled(false);
                     Main.c.show(Main.main, "battle");
                 }
             });

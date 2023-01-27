@@ -27,11 +27,13 @@ public class UIMovePanel extends JPanel {
     private UIBattlePanel battlePanel;
     private JButton backButton;
     private ImageIcon backButtonIcon;
+    private UIEndPanel endPanel;
 
-    public UIMovePanel(HumanPlayer hplayer, Computer comp, UIBattlePanel battlePanel) {
+    public UIMovePanel(HumanPlayer hplayer, Computer comp, UIBattlePanel battlePanel, UIEndPanel endPanel) {
         this.hplayer = hplayer;
         this.comp = comp;
         this.battlePanel = battlePanel;
+        this.endPanel = new UIEndPanel();
         moveButtons = new ArrayList<>();
         JPanel moveButtonsPanel = new JPanel(new GridLayout(2, 2));
         setLayout(new BorderLayout());
@@ -40,6 +42,22 @@ public class UIMovePanel extends JPanel {
         createMoveButtons(moveButtonsPanel);
         createBackButton();
         setBackground(Color.WHITE);
+    }
+
+    public void checkWin() {
+        if(hplayer.allPokemonFeinted()) {
+            endPanel.setWinner("The computer has won!");
+            endPanel.setLoser("You have lost.");
+            endPanel.repaint();
+            endPanel.revalidate();
+            Main.c.show(Main.main, "end");
+        } else if(comp.allPokemonFeinted()) {
+            endPanel.setWinner("You have won!");
+            endPanel.setLoser("The computer has lost.");
+            endPanel.repaint();
+            endPanel.revalidate();
+            Main.c.show(Main.main, "end");
+        }
     }
 
     public void createMoveLabel() {
@@ -68,15 +86,18 @@ public class UIMovePanel extends JPanel {
                     if(hplayer.getCurrentPokemon().isFeinted()) {
                         moveButton.setEnabled(false);
                         JOptionPane.showMessageDialog(null, "Switch pokemons, your current Pok\u00E9mon has fainted");
-                    } else 
+                        checkWin();
+                    } else {
                         hplayer.attack(comp, move);
+                        checkWin();
+                    }
                     comp.getCurrentPokemon().checkCurrenthp();
                     comp.playComp(hplayer.getCurrentPokemon());
                     battlePanel.updateComputerPokemon(comp);
                     UIBattlePanel.getHumanPlayerHP().updateHP(hplayer.getCurrentPokemon());
                     hplayer.getCurrentPokemon().checkCurrenthp();
                     Main.c.show(Main.main, "battle");
-
+                    checkWin();
                 }
             });
             moveButtonsPanel.add(moveButton);
@@ -110,19 +131,23 @@ public class UIMovePanel extends JPanel {
             moveButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    UIBattlePanel.getComputerPlayerHP().updateHP(comp.getCurrentPokemon());
                     Main.c.show(Main.main, "battle");
+                    if(hplayer.getCurrentPokemon().isFeinted()) {
+                        moveButton.setEnabled(false);
+                        JOptionPane.showMessageDialog(null, "Switch pokemons, your current Pok\u00E9mon has fainted");
+                        checkWin();
+                    } else {
+                        hplayer.attack(comp, move);
+                        checkWin();
+                    }
+                    UIBattlePanel.getComputerPlayerHP().updateHP(comp.getCurrentPokemon());
                     comp.getCurrentPokemon().checkCurrenthp();
                     comp.playComp(hplayer.getCurrentPokemon());
                     battlePanel.updateComputerPokemon(comp);
                     UIBattlePanel.getHumanPlayerHP().updateHP(hplayer.getCurrentPokemon());
                     hplayer.getCurrentPokemon().checkCurrenthp();
-                    if(hplayer.getCurrentPokemon().isFeinted()) {
-                        moveButton.setEnabled(false);
-                        JOptionPane.showMessageDialog(null, "Switch pokemons, your current Pok\u00E9mon has fainted");
-                    } else 
-                        hplayer.attack(comp, move);
                     Main.c.show(Main.main, "battle");
+                    checkWin();
                 }
             });
             moveButtonsPanel.add(moveButton);
