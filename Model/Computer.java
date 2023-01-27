@@ -30,6 +30,8 @@ public class Computer extends Player {
             potionBag.add(potions.get(i));
         }
     }
+
+
     public void playComp(Pokemon defender) {
         Random rand = new Random();
         int random = rand.nextInt(2);
@@ -185,7 +187,7 @@ public class Computer extends Player {
     public void attack(HumanPlayer humanPlayer, Move move) {
         int damage = dmgOfMove(move, currentPokemon, humanPlayer.getCurrentPokemon());
         humanPlayer.getCurrentPokemon().setCurrentHp(humanPlayer.getCurrentPokemon().getCurrentHp() - damage);
-        if (isInflictable(move))
+        if(isInflictable(move))
             inflictsStatus(move, humanPlayer.getCurrentPokemon());
     }
 
