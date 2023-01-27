@@ -20,17 +20,19 @@ public class Main extends JFrame {
         player = new HumanPlayer();
         comp = new Computer();
         UIStartScreen start = new UIStartScreen(c, main);
-        UIEndPanel endPanel = new UIEndPanel();
+        UILoserPanel loserPanel = new UILoserPanel();
+        UIWinnerPanel winnerPanel = new UIWinnerPanel();
         UIBattlePanel battlePanel = new UIBattlePanel(player, comp);
-        UIMovePanel movePanel = new UIMovePanel(player, comp, battlePanel, endPanel);
+        UIMovePanel movePanel = new UIMovePanel(player, comp, battlePanel, loserPanel, winnerPanel);
         UIOptionPanel optionPanel = new UIOptionPanel();
         main.add(start, "start");
         c.show(main, "start");
-        main.add(endPanel, "end");
+        main.add(loserPanel, "lost");
+        main.add(winnerPanel, "won");
         main.add(new UIOptionPanel(), "option");
         main.add(new UIBagPanel(player), "bag");
         main.add(optionPanel, "option");
-        main.add(new UIPokemonPanel(player, battlePanel, movePanel, comp, endPanel), "pokemon");
+        main.add(new UIPokemonPanel(player, battlePanel, movePanel, comp, loserPanel, winnerPanel), "pokemon");
         main.add(movePanel, "fight");
         main.add(battlePanel, "battle");
         add(main);
@@ -43,17 +45,11 @@ public class Main extends JFrame {
 
     public static void checkWinner() {
         if(player.allPokemonFeinted()) {
-            UIEndPanel endPanel = new UIEndPanel();
-            endPanel.setWinner("Computer player has won!");
-            endPanel.setVisible(true);
-            Main.main.add(endPanel);
-            Main.main.revalidate();
+            UILoserPanel lost = new UILoserPanel();
+            Main.main.add(lost);
         } else if(comp.allPokemonFeinted()) {
-            UIEndPanel endPanel = new UIEndPanel();
-            endPanel.setWinner("Human player has won!");
-            endPanel.setVisible(true);
-            Main.main.add(endPanel);
-            Main.main.revalidate();
+            UIWinnerPanel won = new UIWinnerPanel();
+            Main.main.add(won);
         }
     }
     

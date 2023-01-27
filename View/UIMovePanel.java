@@ -27,13 +27,15 @@ public class UIMovePanel extends JPanel {
     private UIBattlePanel battlePanel;
     private JButton backButton;
     private ImageIcon backButtonIcon;
-    private UIEndPanel endPanel;
+    private UILoserPanel loserPanel;
+    private UIWinnerPanel winnerPanel;
 
-    public UIMovePanel(HumanPlayer hplayer, Computer comp, UIBattlePanel battlePanel, UIEndPanel endPanel) {
+    public UIMovePanel(HumanPlayer hplayer, Computer comp, UIBattlePanel battlePanel, UILoserPanel loserPanel, UIWinnerPanel winnerPanel) {
         this.hplayer = hplayer;
         this.comp = comp;
         this.battlePanel = battlePanel;
-        this.endPanel = new UIEndPanel();
+        this.loserPanel = new UILoserPanel();
+        this.winnerPanel = new UIWinnerPanel();
         moveButtons = new ArrayList<>();
         JPanel moveButtonsPanel = new JPanel(new GridLayout(2, 2));
         setLayout(new BorderLayout());
@@ -46,17 +48,9 @@ public class UIMovePanel extends JPanel {
 
     public void checkWin() {
         if(hplayer.allPokemonFeinted()) {
-            endPanel.setWinner("The computer has won!");
-            endPanel.setLoser("You have lost.");
-            endPanel.repaint();
-            endPanel.revalidate();
-            Main.c.show(Main.main, "end");
+            Main.c.show(Main.main, "lost");
         } else if(comp.allPokemonFeinted()) {
-            endPanel.setWinner("You have won!");
-            endPanel.setLoser("The computer has lost.");
-            endPanel.repaint();
-            endPanel.revalidate();
-            Main.c.show(Main.main, "end");
+            Main.c.show(Main.main, "won");
         }
     }
 
@@ -106,8 +100,10 @@ public class UIMovePanel extends JPanel {
     }
 
     private void createBackButton() {
+        Path backButtonPath = Paths.get("Assets/", "BackButton.jpg");
+        String stringbackButtonPath = backButtonPath.toString();
         backButtonIcon = new ImageIcon(
-                "C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/BackButton.jpg");
+                stringbackButtonPath);
         Image image = backButtonIcon.getImage(); // transform it
         Image newimg = image.getScaledInstance(55, 55, java.awt.Image.SCALE_SMOOTH);
         // scale it the smooth way
@@ -189,5 +185,45 @@ public class UIMovePanel extends JPanel {
 
     public void setBackButtonIcon(ImageIcon backButtonIcon) {
         this.backButtonIcon = backButtonIcon;
+    }
+
+    public HumanPlayer getHplayer() {
+        return hplayer;
+    }
+
+    public void setHplayer(HumanPlayer hplayer) {
+        this.hplayer = hplayer;
+    }
+
+    public Computer getComp() {
+        return comp;
+    }
+
+    public void setComp(Computer comp) {
+        this.comp = comp;
+    }
+
+    public UIBattlePanel getBattlePanel() {
+        return battlePanel;
+    }
+
+    public void setBattlePanel(UIBattlePanel battlePanel) {
+        this.battlePanel = battlePanel;
+    }
+
+    public UILoserPanel getLoserPanel() {
+        return loserPanel;
+    }
+
+    public void setLoserPanel(UILoserPanel loserPanel) {
+        this.loserPanel = loserPanel;
+    }
+
+    public UIWinnerPanel getWinnerPanel() {
+        return winnerPanel;
+    }
+
+    public void setWinnerPanel(UIWinnerPanel winnerPanel) {
+        this.winnerPanel = winnerPanel;
     }
 }

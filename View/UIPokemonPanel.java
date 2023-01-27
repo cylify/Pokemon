@@ -26,14 +26,17 @@ public class UIPokemonPanel extends JPanel {
     private ActionListener[] actionListeners;
     private UIMovePanel movePanel;
     private Computer comp;
-    private UIEndPanel endPanel;
+    private UILoserPanel loserPanel;
+    private UIWinnerPanel winnerPanel;
 
-    public UIPokemonPanel(HumanPlayer p, UIBattlePanel battlePanel, UIMovePanel movePanel, Computer comp, UIEndPanel endPanel) {
+    public UIPokemonPanel(HumanPlayer p, UIBattlePanel battlePanel, UIMovePanel movePanel, Computer comp, 
+            UILoserPanel loserPanel, UIWinnerPanel winnerPanel) {
         this.p = p;
         this.battlePanel = battlePanel;
         this.movePanel = movePanel;
         this.comp = comp;
-        this.endPanel = endPanel;
+        this.loserPanel = new UILoserPanel();
+        this.winnerPanel = new UIWinnerPanel();
         setLayout(new BorderLayout());
         JPanel pokePanel = new JPanel(new GridLayout(2,2));
         createPokemonLabel();
@@ -43,17 +46,9 @@ public class UIPokemonPanel extends JPanel {
 
     public void checkWin() {
         if(p.allPokemonFeinted()) {
-            endPanel.setWinner("The computer has won!");
-            endPanel.setLoser("You have lost.");
-            endPanel.repaint();
-            endPanel.revalidate();
-            Main.c.show(Main.main, "end");
+            Main.c.show(Main.main, "lost");
         } else if(comp.allPokemonFeinted()) {
-            endPanel.setWinner("You have won!");
-            endPanel.setLoser("The computer has lost.");
-            endPanel.repaint();
-            endPanel.revalidate();
-            Main.c.show(Main.main, "end");
+            Main.c.show(Main.main, "won");
         }
     }
 
@@ -147,8 +142,10 @@ public class UIPokemonPanel extends JPanel {
     }
 
     public void createBackButton() {
+        Path backButtonPath = Paths.get("Assets/", "BackButton.jpg");
+        String stringbackButtonPath = backButtonPath.toString();
         ImageIcon backImg = new ImageIcon(
-                "C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/BackButton.jpg");
+                stringbackButtonPath);
         Image image = backImg.getImage();
         Image newimg = image.getScaledInstance(75, 75, java.awt.Image.SCALE_SMOOTH);
         backImg = new ImageIcon(newimg);
@@ -240,5 +237,29 @@ public class UIPokemonPanel extends JPanel {
      */
     public void setMovePanel(UIMovePanel movePanel) {
         this.movePanel = movePanel;
+    }
+
+    public Computer getComp() {
+        return comp;
+    }
+
+    public void setComp(Computer comp) {
+        this.comp = comp;
+    }
+
+    public UILoserPanel getLoserPanel() {
+        return loserPanel;
+    }
+
+    public void setLoserPanel(UILoserPanel loserPanel) {
+        this.loserPanel = loserPanel;
+    }
+
+    public UIWinnerPanel getWinnerPanel() {
+        return winnerPanel;
+    }
+
+    public void setWinnerPanel(UIWinnerPanel winnerPanel) {
+        this.winnerPanel = winnerPanel;
     }
 }

@@ -68,8 +68,10 @@ public class UIBagPanel extends JPanel {
     
     
     public void createBackButton() {
+        Path backButtonPath = Paths.get("Assets/", "BackButton.jpg");
+        String stringbackButtonPath = backButtonPath.toString();
         ImageIcon backImg = new ImageIcon(
-                "C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/BackButton.jpg");
+                stringbackButtonPath);
         Image image = backImg.getImage(); // transform it
         Image newimg = image.getScaledInstance(75, 75, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
         backImg = new ImageIcon(newimg);

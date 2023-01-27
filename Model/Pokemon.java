@@ -80,20 +80,7 @@ public class Pokemon {
 		}
 		return pokemonMoves;
 	}
-
 	
-	/** 
-	 * @param name
-	 * @return Pokemon
-	 */
-	public static Pokemon valueOf(String name) {
-		ArrayList<Pokemon> poks = readFile();
-		for(Pokemon p : poks) {
-			if(p.getName().equals(name));
-			return p;
-		}
-		return null;
-	}
 
 	public void checkCurrenthp() {
 		if(this.currentHp <= 0) {

@@ -5,6 +5,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class UIBattlePanel extends JPanel {
     private ImageIcon humanPlayerPokemonImg;
@@ -27,12 +29,14 @@ public class UIBattlePanel extends JPanel {
     }   
 
     public void createPlayerPanel(HumanPlayer humanPlayer) {
+        Path imgPath = Paths.get("Assets/back/",
+                String.valueOf(humanPlayer.getCurrentPokemon().getNumber()) + ".png");
+        String stringimgPath = imgPath.toString();
         // Create a panel for the human player's pokemon and hp
         JPanel humanPlayerPanel = new JPanel();
         humanPlayerPanel.setLayout(new BorderLayout());
         humanPlayerPokemonImg = new ImageIcon(
-                "C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/back/"
-                        + String.valueOf(humanPlayer.getCurrentPokemon().getNumber()) + ".png");
+                stringimgPath);
         Image humanPlayerImage = humanPlayerPokemonImg.getImage();
         Image humanPlayerNewimg = humanPlayerImage.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH);
         humanPlayerPokemonImg = new ImageIcon(humanPlayerNewimg);
@@ -66,9 +70,11 @@ public class UIBattlePanel extends JPanel {
     }
 
     public void updateComputerPokemon(Computer computerPlayer) {
+        Path imgPath = Paths.get("Assets/front/", 
+                String.valueOf(computerPlayer.getCurrentPokemon().getNumber()) + ".png");
+        String stringimgPath = imgPath.toString();
         computerPlayerPokemonImg = new ImageIcon(
-                "C:/Users/mradi/Dropbox/Programming/Java/Grade 12 Computer Science/Unit 4/Pokemon/Assets/front/"
-                        + String.valueOf(computerPlayer.getCurrentPokemon().getNumber()) + ".png");
+                stringimgPath);
         Image computerPlayerImage = computerPlayerPokemonImg.getImage();
         Image computerPlayerNewimg = computerPlayerImage.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH);
         computerPlayerPokemonImg = new ImageIcon(computerPlayerNewimg);
