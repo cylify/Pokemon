@@ -3,6 +3,9 @@ import java.util.Random;
 
 public class Computer extends Player {
 
+    /**
+     * Constructer
+     */
     public Computer() {
         super();
     }
@@ -32,14 +35,23 @@ public class Computer extends Player {
     }
 
 
+    
+    /** 
+     * Play computer turn
+     * 
+     * @param defender
+     */
     public void playComp(Pokemon defender) {
         Random rand = new Random();
         int random = rand.nextInt(2);
 
+        // if current pokemon is feinted
         if(getCurrentPokemon().isFeinted()) {
+            // Switch to unfeinted pokemon
             checkFeintedPokemon();
             Main.checkWinner();
         } else if(getCurrentPokemon().getStatus().getCurrentStatus().equals("Normal")) {
+            // Randomly play move or switch pokemon
             if(random == 0) {
                 playMoveTurn(selectMove(), defender);
                 Main.checkWinner();
@@ -48,6 +60,7 @@ public class Computer extends Player {
                 Main.checkWinner();
             }
         } else {
+            // If has item for the current status then heal otherwise pokemon is not feinted and unusable
             if(hasItemForStatus(getCurrentPokemon(), getPotionBag())) {
                 removePotion(getPotionBag(), getCurrentPokemon().getStatus());
                 getCurrentPokemon().setStatus(new Status());
@@ -59,6 +72,12 @@ public class Computer extends Player {
         }
     }
 
+    
+    /** 
+     * Inflict status if applicable
+     * @param move
+     * @param defender
+     */
     public void inflictsStatus(Move move, Pokemon defender) {
         Random rand = new Random();
         // Go through all special moves in special moves file
@@ -95,6 +114,7 @@ public class Computer extends Player {
         Random rand = new Random();
         int num = rand.nextInt(pokemonBag.size());
         Pokemon tempPoke = pokemonBag.get(num);
+        // Select pokemon until not current pokemon
         while(tempPoke != this.currentPokemon) {
             num = rand.nextInt(pokemonBag.size());
             tempPoke = pokemonBag.get(num);
@@ -148,6 +168,7 @@ public class Computer extends Player {
      * @return boolean
      */
     public boolean isInflictable(Move move) {
+        // If move is a special move
         for (SpecialMoves specialMove : SpecialMoves.readFile()) {
             if (specialMove.getName().equals(move.getName())) {
                 return true;
@@ -156,11 +177,21 @@ public class Computer extends Player {
         return false;
     }
 
+    
+    /**
+     * 
+     * Get a random pokemon
+     * 
+     * @return Pokemon
+     */
     public Pokemon getRandPokemon() {
         Random rand = new Random();
         return pokemonBag.get(rand.nextInt(pokemonBag.size()));
     }
 
+    /**
+     * Check if current pokemon is feinted then switch pokemon
+     */
     public void checkFeintedPokemon() {
         if(this.currentPokemon.isFeinted()) {
             this.pokemonBag.remove(this.currentPokemon);
@@ -169,6 +200,12 @@ public class Computer extends Player {
         }
     }
 
+    
+    /** 
+     * Check if all pokemons are feinted
+     * 
+     * @return boolean
+     */
     public boolean allPokemonFeinted() {
         for(Pokemon pokemon : pokemonBag) {
             if(!pokemon.isFeinted()) {
@@ -191,6 +228,13 @@ public class Computer extends Player {
             inflictsStatus(move, humanPlayer.getCurrentPokemon());
     }
 
+    
+    /** 
+     * Play computer move turn
+     * 
+     * @param move
+     * @param defender
+     */
     public void playMoveTurn(Move move, Pokemon defender) {
         attack(move, getCurrentPokemon(), defender);
     }

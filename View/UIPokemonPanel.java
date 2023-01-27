@@ -44,6 +44,9 @@ public class UIPokemonPanel extends JPanel {
         createBackButton();
     }
 
+    /**
+     * Check if won or lost
+     */
     public void checkWin() {
         if(p.allPokemonFeinted()) {
             Main.c.show(Main.main, "lost");
@@ -52,24 +55,28 @@ public class UIPokemonPanel extends JPanel {
         }
     }
 
+    /**
+     * Added pokemon label for current screen
+     */
     public void createPokemonLabel() {
         Path textPath = Paths.get("Assets/", "pokemon-stadium-2.ttf");
         String textPathAsString = textPath.toString();
-        JLabel potionExclaim = new JLabel("THESE ARE YOUR POK\u00C9MONS!");
+        JLabel exclaim = new JLabel("THESE ARE YOUR POK\u00C9MONS!");
         try {
             InputStream inputStream = new BufferedInputStream(new FileInputStream(
                     textPathAsString));
             Font font = Font.createFont(Font.TRUETYPE_FONT, inputStream);
             font = font.deriveFont(26f);
-            potionExclaim.setFont(font);
+            exclaim.setFont(font);
         } catch (IOException | FontFormatException e) {
-            potionExclaim.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 10));
+            exclaim.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 10));
         }
-        add(potionExclaim, BorderLayout.NORTH);
+        add(exclaim, BorderLayout.NORTH);
     }
 
     
     /** 
+     * Create all pokemon buttons and added actionlisteners for each button
      * @param pokePanel
      */
     public void createPokemonButtons(JPanel pokePanel) {
@@ -111,9 +118,10 @@ public class UIPokemonPanel extends JPanel {
 
     
     /** 
+     * Change pokemon to what user had pressed
      * @param index
      */
-        public void changePokemon(int index) {
+    public void changePokemon(int index) {
         int prevIndex = -1;
         for (int j = 0; j < pokemons.length; j++) {
             if (pokemons[j].getText().equals(p.getCurrentPokemon().getName())) {
@@ -141,6 +149,9 @@ public class UIPokemonPanel extends JPanel {
         }
     }
 
+    /**
+     * Create back button to go back to previous screen
+     */
     public void createBackButton() {
         Path backButtonPath = Paths.get("Assets/", "BackButton.jpg");
         String stringbackButtonPath = backButtonPath.toString();
@@ -239,26 +250,50 @@ public class UIPokemonPanel extends JPanel {
         this.movePanel = movePanel;
     }
 
+    
+    /** 
+     * @return Computer
+     */
     public Computer getComp() {
         return comp;
     }
 
+    
+    /** 
+     * @param comp
+     */
     public void setComp(Computer comp) {
         this.comp = comp;
     }
 
+    
+    /** 
+     * @return UILoserPanel
+     */
     public UILoserPanel getLoserPanel() {
         return loserPanel;
     }
 
+    
+    /** 
+     * @param loserPanel
+     */
     public void setLoserPanel(UILoserPanel loserPanel) {
         this.loserPanel = loserPanel;
     }
 
+    
+    /** 
+     * @return UIWinnerPanel
+     */
     public UIWinnerPanel getWinnerPanel() {
         return winnerPanel;
     }
 
+    
+    /** 
+     * @param winnerPanel
+     */
     public void setWinnerPanel(UIWinnerPanel winnerPanel) {
         this.winnerPanel = winnerPanel;
     }

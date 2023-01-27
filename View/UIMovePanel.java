@@ -54,22 +54,30 @@ public class UIMovePanel extends JPanel {
         }
     }
 
+    /**
+     * Create label for move panel
+     */
     public void createMoveLabel() {
         Path textPath = Paths.get("Assets/", "pokemon-stadium-2.ttf");
         String textPathAsString = textPath.toString();
-        JLabel potionExclaim = new JLabel("THESE ARE YOUR MOVES!");
+        JLabel exclaim = new JLabel("THESE ARE YOUR MOVES!");
         try {
             InputStream inputStream = new BufferedInputStream(new FileInputStream(
                     textPathAsString));
             Font font = Font.createFont(Font.TRUETYPE_FONT, inputStream);
             font = font.deriveFont(26f);
-            potionExclaim.setFont(font);
+            exclaim.setFont(font);
         } catch (IOException | FontFormatException e) {
-            potionExclaim.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 10));
+            exclaim.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 10));
         }
-        add(potionExclaim, BorderLayout.NORTH);
+        add(exclaim, BorderLayout.NORTH);
     }
 
+    
+    /** 
+     * Create move buttons
+     * @param moveButtonsPanel
+     */
     private void createMoveButtons(JPanel moveButtonsPanel) {
         for (Move move : hplayer.getCurrentPokemon().getMoves()) {
             JButton moveButton = new JButton(move.getName());
@@ -99,6 +107,9 @@ public class UIMovePanel extends JPanel {
         add(moveButtonsPanel, BorderLayout.CENTER);
     }
 
+    /**
+     * Create back button to go back to previous screen
+     */
     private void createBackButton() {
         Path backButtonPath = Paths.get("Assets/", "BackButton.jpg");
         String stringbackButtonPath = backButtonPath.toString();
@@ -119,6 +130,9 @@ public class UIMovePanel extends JPanel {
         add(backButton, BorderLayout.SOUTH);
     }
 
+    /**
+     * Update buttons for moves for current pokemon
+     */
     public void updateMoveButtons() {
         moveButtons.clear();
         JPanel moveButtonsPanel = new JPanel(new GridLayout(2, 2));
@@ -155,74 +169,146 @@ public class UIMovePanel extends JPanel {
         repaint();
     }
 
+    
+    /** 
+     * @return HumanPlayer
+     */
     public HumanPlayer gethplayer() {
         return hplayer;
     }
 
+    
+    /** 
+     * @param hplayer
+     */
     public void sethplayer(HumanPlayer hplayer) {
         this.hplayer = hplayer;
     }
 
+    
+    /** 
+     * @return ArrayList<JButton>
+     */
     public ArrayList<JButton> getMoveButtons() {
         return moveButtons;
     }
 
+    
+    /** 
+     * @param moveButtons
+     */
     public void setMoveButtons(ArrayList<JButton> moveButtons) {
         this.moveButtons = moveButtons;
     }
 
+    
+    /** 
+     * @return JButton
+     */
     public JButton getBackButton() {
         return backButton;
     }
 
+    
+    /** 
+     * @param backButton
+     */
     public void setBackButton(JButton backButton) {
         this.backButton = backButton;
     }
 
+    
+    /** 
+     * @return ImageIcon
+     */
     public ImageIcon getBackButtonIcon() {
         return backButtonIcon;
     }
 
+    
+    /** 
+     * @param backButtonIcon
+     */
     public void setBackButtonIcon(ImageIcon backButtonIcon) {
         this.backButtonIcon = backButtonIcon;
     }
 
+    
+    /** 
+     * @return HumanPlayer
+     */
     public HumanPlayer getHplayer() {
         return hplayer;
     }
 
+    
+    /** 
+     * @param hplayer
+     */
     public void setHplayer(HumanPlayer hplayer) {
         this.hplayer = hplayer;
     }
 
+    
+    /** 
+     * @return Computer
+     */
     public Computer getComp() {
         return comp;
     }
 
+    
+    /** 
+     * @param comp
+     */
     public void setComp(Computer comp) {
         this.comp = comp;
     }
 
+    
+    /** 
+     * @return UIBattlePanel
+     */
     public UIBattlePanel getBattlePanel() {
         return battlePanel;
     }
 
+    
+    /** 
+     * @param battlePanel
+     */
     public void setBattlePanel(UIBattlePanel battlePanel) {
         this.battlePanel = battlePanel;
     }
 
+    
+    /** 
+     * @return UILoserPanel
+     */
     public UILoserPanel getLoserPanel() {
         return loserPanel;
     }
 
+    
+    /** 
+     * @param loserPanel
+     */
     public void setLoserPanel(UILoserPanel loserPanel) {
         this.loserPanel = loserPanel;
     }
 
+    
+    /** 
+     * @return UIWinnerPanel
+     */
     public UIWinnerPanel getWinnerPanel() {
         return winnerPanel;
     }
 
+    
+    /** 
+     * @param winnerPanel
+     */
     public void setWinnerPanel(UIWinnerPanel winnerPanel) {
         this.winnerPanel = winnerPanel;
     }

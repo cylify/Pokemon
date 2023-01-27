@@ -8,6 +8,9 @@ public abstract class Player {
     protected Pokemon defendingPokemon;
     protected Multiplier multiplier;
 
+    /**
+     * Constructer
+     */
     public Player() {
         this.multiplier = new Multiplier();
         this.pokemonBag = new ArrayList<>();
@@ -22,6 +25,12 @@ public abstract class Player {
     public abstract void fillPotionBag();
 
 
+    
+    /** 
+     * remove potion from potionBag
+     * @param potions
+     * @param status
+     */
     public void removePotion(ArrayList<Items> potions, Status status) {
         for(Items item : potions) {
             if(item.getName().equals(status.getCurrentStatus())) {
@@ -49,12 +58,14 @@ public abstract class Player {
 
     
     /** 
+     * Inflict move status effect
      * @param move
      * @param defender
      */
     public void inflictsStatus(Move move, Pokemon defender) {
         Random rand = new Random();
         for(SpecialMoves specialMove : SpecialMoves.readFile()) {
+            // If move is a special move
             if (specialMove.getName().equals(move.getName())) {
                 if (rand.nextInt(0, 4) == 0)
                     defender.setStatus(new Status(specialMove.getStatus()));
@@ -66,6 +77,7 @@ public abstract class Player {
 
     
     /** 
+     * Attack defending pokemon with attacker pokemon
      * @param move
      * @param attacker
      * @param defender

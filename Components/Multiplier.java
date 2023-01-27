@@ -9,6 +9,9 @@ import java.nio.file.Paths;
 public class Multiplier {
     private static HashMap<String, ArrayList<Double>> multipliers;
 
+	/**
+	 * Constructer
+	 */
     public Multiplier() {
         multipliers = new HashMap<>();
         multipliers = readFile();

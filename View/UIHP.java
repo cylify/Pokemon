@@ -21,6 +21,11 @@ public class UIHP extends JPanel {
         setBackground(Color.WHITE);
     }
 
+    
+    /** 
+     * For pokemon update hp which is a JProgressBar
+     * @param p
+     */
     public void updateHP(Pokemon p) {
         hpBar.setMaximum(p.getHealth());
         if (p.getCurrentHp() > 0) {

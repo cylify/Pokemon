@@ -52,34 +52,66 @@ public class UIOptionPanel extends JPanel {
         add(run);
     }
 
+    
+    /** 
+     * @return JButton
+     */
     public JButton getFight() {
         return fight;
     }
 
+    
+    /** 
+     * @param fight
+     */
     public void setFight(JButton fight) {
         this.fight = fight;
     }
 
+    
+    /** 
+     * @return JButton
+     */
     public JButton getBag() {
         return bag;
     }
 
+    
+    /** 
+     * @param bag
+     */
     public void setBag(JButton bag) {
         this.bag = bag;
     }
 
+    
+    /** 
+     * @return JButton
+     */
     public JButton getRun() {
         return run;
     }
 
+    
+    /** 
+     * @param run
+     */
     public void setRun(JButton run) {
         this.run = run;
     }
 
+    
+    /** 
+     * @return JButton
+     */
     public JButton getPokemon() {
         return pokemon;
     }
 
+    
+    /** 
+     * @param pokemon
+     */
     public void setPokemon(JButton pokemon) {
         this.pokemon = pokemon;
     }

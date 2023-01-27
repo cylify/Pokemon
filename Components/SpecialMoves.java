@@ -10,6 +10,9 @@ public class SpecialMoves {
 	private String status;
 	private Double chance;
 
+	/**
+	 * Constructer
+	 */
 	public SpecialMoves(String name, String status, Double chance) {
 		this.name = name;
 		this.status = status;

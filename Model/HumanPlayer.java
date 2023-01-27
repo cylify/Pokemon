@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class HumanPlayer extends Player {
+    /**
+     * Constructer
+     */
     public HumanPlayer() {
         super();
     }
@@ -96,6 +99,11 @@ public class HumanPlayer extends Player {
 			inflictsStatus(move, computerPlayer.getCurrentPokemon());
     }
 
+    
+    /** 
+     * Checks if all pokemons are feinted
+     * @return boolean
+     */
     public boolean allPokemonFeinted() {
         for (Pokemon pokemon : pokemonBag) {
             if (!pokemon.isFeinted()) {

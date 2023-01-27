@@ -23,20 +23,7 @@ public class UIBagPanel extends JPanel {
 
     public UIBagPanel(HumanPlayer player) throws IOException, FontFormatException {
         setLayout(new BorderLayout());
-
-        Path textPath = Paths.get("Assets/", "pokemon-stadium-2.ttf");
-        String textPathAsString = textPath.toString();
-        JLabel potionExclaim = new JLabel("THESE ARE YOUR POTIONS!");
-        try {
-            InputStream inputStream = new BufferedInputStream(new FileInputStream(
-                    textPathAsString));
-            Font font = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-            font = font.deriveFont(26f);
-            potionExclaim.setFont(font);
-        } catch (IOException | FontFormatException e) {
-            potionExclaim.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 10));
-        }
-        add(potionExclaim, BorderLayout.NORTH);
+        createBagLabel();
 
         // Create a new panel with GridLayout to hold the potion buttons
         JPanel potionButtonPanel = new JPanel(new GridLayout(3, 2));
@@ -65,8 +52,26 @@ public class UIBagPanel extends JPanel {
         createBackButton();
         setBackground(Color.WHITE);
     }
+
+    public void createBagLabel() {
+        Path textPath = Paths.get("Assets/", "pokemon-stadium-2.ttf");
+        String textPathAsString = textPath.toString();
+        JLabel exclaim = new JLabel("THESE ARE YOUR POTIONS!");
+        try {
+            InputStream inputStream = new BufferedInputStream(new FileInputStream(
+                    textPathAsString));
+            Font font = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+            font = font.deriveFont(26f);
+            exclaim.setFont(font);
+        } catch (IOException | FontFormatException e) {
+            exclaim.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 10));
+        }
+        add(exclaim, BorderLayout.NORTH);
+    }
     
-    
+    /**
+     * Create back button to go back to previous screen
+     */
     public void createBackButton() {
         Path backButtonPath = Paths.get("Assets/", "BackButton.jpg");
         String stringbackButtonPath = backButtonPath.toString();

@@ -10,6 +10,9 @@ public class Move {
 	private String type;
 	private int dmg;
 
+	/**
+	 * Constructer
+	 */
 	public Move(String name, String type, int dmg) {
 		this.name = name;
 		this.type = type;

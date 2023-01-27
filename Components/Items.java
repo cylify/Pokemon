@@ -9,6 +9,9 @@ public class Items {
 	private String name;
 	private String healing;
 
+	/**
+	 * Constructer
+	 */
 	public Items(String name, String healing) {
 		this.name = name;
 		this.healing = healing;
@@ -24,6 +27,7 @@ public class Items {
 		Path filePath = Paths.get("Assets/", "potions.csv");
 		String fileString = filePath.toString();
 		try {
+			// Get file
 			File file = new File(fileString);
 			Scanner in = new Scanner(file);
 			while(in.hasNextLine()) {

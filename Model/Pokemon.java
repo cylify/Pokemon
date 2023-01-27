@@ -39,6 +39,7 @@ public class Pokemon {
 
 	
 	/** 
+	 * Read file
 	 * @return ArrayList<Pokemon>
 	 */
 	public static ArrayList<Pokemon> readFile() {
@@ -70,6 +71,7 @@ public class Pokemon {
 
 	
 	/** 
+	 * Get all moves for pokemon
 	 * @return Move[]
 	 */
 	public Move[] getPokemonMoves() {
@@ -80,8 +82,11 @@ public class Pokemon {
 		}
 		return pokemonMoves;
 	}
-	
 
+
+	/**
+	 * Check if current hp is below or equal to 0, if so pokemon is feinted
+	 */
 	public void checkCurrenthp() {
 		if(this.currentHp <= 0) {
 			this.isFeinted = true;
@@ -90,6 +95,7 @@ public class Pokemon {
 
 	
 	/** 
+	 * Get number for pokemon type
 	 * @param type
 	 * @return Integer
 	 */
@@ -319,24 +325,40 @@ public class Pokemon {
 
 
 
+	
+	/** 
+	 * @return String
+	 */
 	public String getBackimg() {
 		return Backimg;
 	}
 
 
 
+	
+	/** 
+	 * @param backimg
+	 */
 	public void setBackimg(String backimg) {
 		Backimg = backimg;
 	}
 
 
 
+	
+	/** 
+	 * @return String
+	 */
 	public String getFrontimg() {
 		return Frontimg;
 	}
 
 
 
+	
+	/** 
+	 * @param frontimg
+	 */
 	public void setFrontimg(String frontimg) {
 		Frontimg = frontimg;
 	}
